@@ -1,5 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/widgets/onboarding.dart';
 
 void main() {
   runApp(const MainApp());
@@ -32,10 +34,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: 'assets/logo.png',
-      backgroundColor: const Color(0XFFFFE464),
+      backgroundColor: AppColors.yellow,
       splashIconSize: 240,
       nextScreen: const Scaffold(
-        body: Center(child: Text("First onboarding Screen")),
+        backgroundColor: AppColors.lightBlack,
+        body: OnBoarding(
+            heading: "Welcome",
+            description: "Description for the first step",
+            step: 0),
       ),
     );
   }
