@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:jawline_fitness/screens/alarms.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
+import 'package:jawline_fitness/widgets/alarm_card.dart';
 import 'package:jawline_fitness/widgets/stepper.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/user.dart';
+import '../utils/constants.dart';
+import '../utils/data_provider.dart';
+import 'number_picker.dart';
 
 class OnBoarding extends StatefulWidget {
-  final String heading;
-  final String description;
-  final int step;
-
   const OnBoarding({
     Key? key,
-    required this.heading,
-    required this.description,
-    required this.step,
   }) : super(key: key);
 
   @override
@@ -22,6 +25,9 @@ class OnBoarding extends StatefulWidget {
 
 class OnBoardingState extends State<OnBoarding> {
   int currentStep = 0;
+  var nameController = TextEditingController();
+  late final String gender;
+  late final String age;
 
   @override
   void didChangeDependencies() {
@@ -29,12 +35,30 @@ class OnBoardingState extends State<OnBoarding> {
     SizeConfig().init(context);
   }
 
-  void _nextStep() {
-    setState(() {
-      if (currentStep < 5) {
+  Future<void> _nextStep(BuildContext context) async {
+    if (currentStep < 4) {
+      setState(() {
         currentStep++;
-      }
-    });
+      });
+    } else if (currentStep == 4) {
+      final userDataProvider =
+          Provider.of<DataProvider>(context, listen: false);
+      final name = nameController.text;
+      final age = _currentValue;
+      final gender = this.gender;
+      final userData = User(name: name, age: age, gender: gender);
+      userDataProvider.saveUserData(userData);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('name', name);
+      await prefs.setInt('age', age);
+      await prefs.setString('gender', gender);
+      await prefs.setBool('isOnboarded', true);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (BuildContext context) {
+          return const ExampleAlarmHomeScreen();
+        }),
+      );
+    }
   }
 
   void _previousStep() {
@@ -45,165 +69,230 @@ class OnBoardingState extends State<OnBoarding> {
     });
   }
 
+  int _currentValue = 21;
+  String customTextMapper(String value) {
+    // Modify the input value to a custom format (e.g., add a suffix)
+    return '$value years old';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: const EdgeInsets.all(25),
-        child: Column(
+    final stepsContent = [
+      const Padding(
+        padding: EdgeInsets.all(25.0),
+        child: Text(
+          'Step 1 Illustration',
+          style: TextStyle(
+            color: AppColors.white,
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.heading,
-              style: AppStyles.heading,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              widget.description,
-              style: AppStyles.description,
-            ),
-            const SizedBox(height: 32),
-            CustomStepper(step: currentStep),
-            Stepper(
-              currentStep: currentStep,
-              onStepContinue: () {
-                _nextStep();
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  gender = "MALE";
+                });
               },
-              onStepCancel: () {
-                _previousStep();
-              },
-              steps: const [
-                Step(
-                  title: Text(
-                    'Step 1',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  content: Text(
-                    'Step 1 description',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                Step(
-                  title: Text(
-                    'Step 2',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  content: Text(
-                    'Step 2 description',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                Step(
-                  title: Text(
-                    'Step 3',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  content: Text(
-                    'Step 3 description',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                Step(
-                  title: Text(
-                    'Step 4',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  content: Text(
-                    'Step 4 description',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-                Step(
-                  title: Text(
-                    'Step 5',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  content: Text(
-                    'Step 5 description',
-                    style: TextStyle(
-                      color: AppColors.white,
-                    ),
-                  ),
-                ),
-              ],
+              child: const Text(
+                "Male",
+              ),
             ),
-            const SizedBox(height: 16),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    _nextStep();
-                  },
-                  style: AppStyles.primaryButton,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        String.fromCharCode(
-                            Icons.chevron_left_rounded.codePoint),
-                        style: AppStyles.boldIconYellow,
-                      ),
-                      Text(
-                        'Next',
-                        style: AppStyles.primaryButtonText,
-                      ),
-                      Text(
-                        String.fromCharCode(
-                            Icons.chevron_right_rounded.codePoint),
-                        style: AppStyles.boldIconBlack,
-                      ),
-                    ],
-                  ),
-                ),
-                if (currentStep > 0)
-                  TextButton(
-                    style: AppStyles.secondaryButton,
-                    onPressed: () {
-                      _previousStep();
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.chevron_left,
-                          size: 22,
-                          color: AppColors.grey,
-                        ),
-                        Text(
-                          'Back',
-                          style: AppStyles.secondaryButtonText,
-                        ),
-                        const Icon(
-                          Icons.chevron_left,
-                          size: 22,
-                          color: AppColors.lightBlack,
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  gender = "FEMALE";
+                });
+              },
+              child: const Text(
+                "Female",
+              ),
             ),
           ],
         ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Center(
+          child: TextField(
+            controller: nameController,
+            decoration: InputDecoration(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              label: const Center(
+                child: Text(
+                  "Username",
+                  style: TextStyle(color: AppColors.grey),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              // labelText: 'Username', // Label text for the TextField
+              // labelStyle: const TextStyle(color: AppColors.grey),
+              alignLabelWithHint: true,
+              hintText:
+                  'Enter your username', // Hint text to provide a hint to the user
+              hintStyle: TextStyle(color: AppColors.grey.withOpacity(0.7)),
+              filled: true,
+              fillColor:
+                  AppColors.lightBlack, // Background color for the TextField
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.yellow),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: AppColors.darkGrey),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                color: AppColors.grey), // Text color for the input text
+            cursorColor: AppColors.white, // Color of the text cursor
+            keyboardType: TextInputType.text, // Keyboard type for the input
+            textInputAction: TextInputAction
+                .done, // Action button on the keyboard (in this case, the "Done" button)
+            onChanged: (value) {
+              // Callback when the user types in the TextField
+              // You can do something with the value, like updating the state
+              // e.g., setState(() { username = value });
+            },
+            onSubmitted: (value) {
+              // Callback when the user submits the TextField (e.g., presses the "Done" button)
+              // You can handle form submission or other actions here
+            },
+          ),
+        ),
+      ),
+      Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SvgPicture.asset(
+                "assets/pointer.svg",
+              ),
+              NumberPicker(
+                value: _currentValue,
+                minValue: 18,
+                maxValue: 90,
+                step: 1,
+                haptics: true,
+                itemCount: 5,
+                itemHeight: 80,
+                itemWidth: SizeConfig.screenWidth - 120,
+                onChanged: (value) => setState(() => _currentValue = value),
+              ),
+              SvgPicture.asset("assets/pointer.svg",
+                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  semanticsLabel: 'A red up arrow'),
+            ],
+          ),
+          Text('Current value: $_currentValue'),
+        ],
+      ),
+      AlarmCard(
+        alarmSettings: null,
+      ),
+    ];
+
+    return Scaffold(
+      backgroundColor: AppColors.lightBlack,
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.all(25),
+                // height: SizeConfig.screenHeight,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 25),
+                    CustomStepper(step: currentStep),
+                    const SizedBox(height: 50),
+                    Text(
+                      Constants.steps[currentStep]["heading"]!,
+                      style: AppStyles.heading,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      Constants.steps[currentStep]["description"]!,
+                      style: AppStyles.description,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 25),
+                    const Spacer(),
+                    stepsContent[currentStep],
+                    const Spacer(),
+                    const SizedBox(height: 25),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            _nextStep(context);
+                          },
+                          style: AppStyles.primaryButton,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                String.fromCharCode(
+                                    Icons.chevron_left_rounded.codePoint),
+                                style: AppStyles.boldIconYellow,
+                              ),
+                              Text(
+                                'Next',
+                                style: AppStyles.primaryButtonText,
+                              ),
+                              Text(
+                                String.fromCharCode(
+                                    Icons.chevron_right_rounded.codePoint),
+                                style: AppStyles.boldIconBlack,
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        if (currentStep > 0)
+                          TextButton(
+                            style: AppStyles.secondaryButton,
+                            onPressed: () {
+                              _previousStep();
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.chevron_left,
+                                  size: 22,
+                                  color: AppColors.grey,
+                                ),
+                                Text(
+                                  'Back',
+                                  style: AppStyles.secondaryButtonText,
+                                ),
+                                const Icon(
+                                  Icons.chevron_left,
+                                  size: 22,
+                                  color: AppColors.lightBlack,
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

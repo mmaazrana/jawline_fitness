@@ -17,15 +17,15 @@ class CustomStep extends StatelessWidget {
       children: [
         if (position > 0)
           Container(
-            width: 20,
-            height: 4,
+            width: 25,
+            height: 2,
             color:
                 position <= currentStep ? AppColors.yellow : AppColors.darkGrey,
           ),
         CircleAvatar(
           backgroundColor:
               position <= currentStep ? AppColors.yellow : AppColors.darkGrey,
-          radius: 12,
+          radius: 6,
         ),
       ],
     );
