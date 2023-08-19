@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jawline_fitness/screens/alarms.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
@@ -12,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user.dart';
 import '../utils/constants.dart';
 import '../utils/data_provider.dart';
+import '../utils/routes.dart';
 import 'number_picker.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -53,11 +53,7 @@ class OnBoardingState extends State<OnBoarding> {
       await prefs.setInt('age', age);
       await prefs.setString('gender', gender);
       await prefs.setBool('isOnboarded', true);
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (BuildContext context) {
-          return const ExampleAlarmHomeScreen();
-        }),
-      );
+      Navigator.pushReplacementNamed(context, Routes.home);
     }
   }
 
@@ -187,14 +183,14 @@ class OnBoardingState extends State<OnBoarding> {
                 onChanged: (value) => setState(() => _currentValue = value),
               ),
               SvgPicture.asset("assets/pointer.svg",
-                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   semanticsLabel: 'A red up arrow'),
             ],
           ),
           Text('Current value: $_currentValue'),
         ],
       ),
-      AlarmCard(
+      const AlarmCard(
         alarmSettings: null,
       ),
     ];

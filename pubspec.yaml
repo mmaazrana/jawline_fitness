@@ -20,6 +20,7 @@ dependencies:
   shared_preferences: ^2.2.0
 
 
+
   
 dev_dependencies:
   flutter_test:
@@ -28,5 +29,14 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Raleway
+      fonts:
+        - asset: fonts/Raleway-Regular.ttf
+        - asset: fonts/Raleway-Black.ttf
+        - asset: fonts/Raleway-Bold.ttf
+        - asset: fonts/Raleway-ExtraBold.ttf
+        - asset: fonts/Raleway-SemiBold.ttf
+          style: italic
   assets: 
     - assets/

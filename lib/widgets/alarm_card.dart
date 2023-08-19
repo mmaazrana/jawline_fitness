@@ -56,9 +56,9 @@ class _AlarmCardState extends State<AlarmCard> {
       var isPermanentlyDenied =
           await Permission.scheduleExactAlarm.request().isPermanentlyDenied;
       print(isPermanentlyDenied);
-      if (isPermanentlyDenied)
+      if (isPermanentlyDenied) {
         openAppSettings();
-      else {
+      } else {
         final res = await showTimePicker(
           initialTime: selectedTime,
           context: context,
@@ -95,7 +95,6 @@ class _AlarmCardState extends State<AlarmCard> {
           setState(() => selectedTime = res);
           saveAlarm();
         }
-        ;
       }
     }
   }
@@ -177,13 +176,13 @@ class _AlarmCardState extends State<AlarmCard> {
                 children: [
                   Text(
                     selectedTime.format(context),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: AppColors.grey,
                       fontSize: 28,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                  Text(
+                  const Text(
                     "Everyday",
                     style: TextStyle(
                       color: AppColors.grey,
@@ -193,7 +192,7 @@ class _AlarmCardState extends State<AlarmCard> {
                   ),
                 ],
               ),
-              Spacer(),
+              const Spacer(),
               Switch(
                 value: reminder,
                 // thumbColor: MaterialStateProperty.all(
@@ -206,7 +205,7 @@ class _AlarmCardState extends State<AlarmCard> {
                   reminder ? AppColors.yellow : AppColors.grey,
                 ),
                 thumbIcon: MaterialStateProperty.all(
-                  Icon(
+                  const Icon(
                     Icons.circle,
                     color: AppColors.darkGrey,
                   ),
@@ -226,7 +225,6 @@ class _AlarmCardState extends State<AlarmCard> {
                   } else {
                     deleteAlarm();
                   }
-                  ;
                 },
               )
             ],

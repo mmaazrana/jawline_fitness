@@ -6,7 +6,7 @@ import 'colors.dart';
 class AppStyles {
   static TextStyle heading = const TextStyle(
     fontSize: 42,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w800,
     color: AppColors.yellow,
   );
 
@@ -18,7 +18,7 @@ class AppStyles {
 
   static TextStyle primaryButtonText = const TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w800,
     color: AppColors.lightBlack,
   );
 
@@ -32,7 +32,7 @@ class AppStyles {
     inherit: false,
     color: AppColors.lightBlack,
     fontSize: 28,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w800,
     fontFamily: Icons.chevron_left_rounded.fontFamily,
     package: Icons.chevron_left_rounded.fontPackage,
   );
@@ -41,7 +41,7 @@ class AppStyles {
     inherit: false,
     color: AppColors.yellow,
     fontSize: 28,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w800,
     fontFamily: Icons.chevron_left_rounded.fontFamily,
     package: Icons.chevron_left_rounded.fontPackage,
   );

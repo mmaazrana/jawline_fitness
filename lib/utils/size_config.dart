@@ -9,6 +9,7 @@ class SizeConfig {
   static late double textMultiplier;
   static late double imageSizeMultiplier;
   static late double heightMultiplier;
+  static late Orientation orientation;
 
   void init(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -19,6 +20,6 @@ class SizeConfig {
     statusBarHeight = mediaQuery.padding.top;
     textMultiplier = blockSizeVertical;
     imageSizeMultiplier = blockSizeHorizontal;
-    heightMultiplier = blockSizeVertical;
+    orientation = mediaQuery.orientation;
   }
 }

@@ -4,13 +4,10 @@ import 'package:alarm/alarm.dart';
 import 'package:jawline_fitness/screens/edit_alarm.dart';
 import 'package:jawline_fitness/screens/ring.dart';
 import 'package:jawline_fitness/utils/colors.dart';
-import 'package:jawline_fitness/widgets/tile.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/data_provider.dart';
 import '../widgets/progress_indicator.dart';
 
 class ExampleAlarmHomeScreen extends StatefulWidget {
@@ -122,7 +119,7 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
                 color: AppColors.lightBlack,
                 width: 200,
                 height: 200,
-                child: CustomCircularProgressIndicator(),
+                child: const CustomCircularProgressIndicator(),
               )
             : Center(
                 child: Column(
@@ -142,7 +139,7 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
                           if (isPermanentlyDenied) openAppSettings();
                         }
                       },
-                      child: Text("Check Permission"),
+                      child: const Text("Check Permission"),
                     ),
                     // const Text("Provider Data"),
                     // const Text("Name"),
@@ -184,7 +181,7 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
               onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
             ),
-          ],
+          ], 
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -1,12 +1,17 @@
 import 'package:alarm/alarm.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:jawline_fitness/screens/alarms.dart';
+import 'package:jawline_fitness/screens/home.dart';
+import 'package:jawline_fitness/screens/rest.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/data_provider.dart';
+import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'screens/exerciseComplete.dart';
+import 'screens/exercise.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,32 +30,39 @@ class MainApp extends StatelessWidget {
       },
       child: MaterialApp(
         theme: ThemeData(
+          fontFamily: 'Raleway',
           useMaterial3: true,
           colorSchemeSeed: Colors.yellow,
+          // Use Raleway font as the default font for the entire app.
         ),
         debugShowCheckedModeBanner: false,
         title: 'Jawline Fitness',
-        home: const MyHomePage(title: 'Jawline Fitness Home Page'),
+        initialRoute: Routes.splashScreen,
+        routes: {
+          Routes.home: (context) => const Home(),
+          Routes.onBoarding: (context) => const OnBoarding(),
+          Routes.splashScreen: (context) => const SplashScreen(),
+          Routes.exerciseScreen: (context) => ExerciseScreen(),
+          Routes.restScreen: (context) => const RestScreen(),
+          Routes.completeScreen: (context) => const ExcerciseCompleteScreen(),
+        },
       ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _SplashScreenState extends State<SplashScreen> {
   bool isOnboarded = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     _loadData();
     super.initState();
   }
@@ -69,8 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       splash: 'assets/logo.png',
       backgroundColor: AppColors.yellow,
       splashIconSize: 240,
-      nextScreen:
-          isOnboarded ? const ExampleAlarmHomeScreen() : const OnBoarding(),
+      nextScreen: isOnboarded ? const Home() : const OnBoarding(),
     );
   }
 }

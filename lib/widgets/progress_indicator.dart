@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 
 class CustomCircularProgressIndicator extends StatefulWidget {
+  const CustomCircularProgressIndicator({super.key});
+
   @override
   _CustomCircularProgressIndicatorState createState() =>
       _CustomCircularProgressIndicatorState();
@@ -27,8 +29,8 @@ class _CustomCircularProgressIndicatorState
   }
 
   void _startTimer() {
-    const duration = const Duration(seconds: 10);
-    const interval = const Duration(milliseconds: 50);
+    const duration = Duration(seconds: 10);
+    const interval = Duration(milliseconds: 50);
 
     int step = 0;
     _timer = Timer.periodic(interval, (Timer timer) {

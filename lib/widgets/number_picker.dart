@@ -117,7 +117,7 @@ class _NumberPickerState extends State<NumberPicker> {
       }
     }
     Future.delayed(
-      Duration(milliseconds: 100),
+      const Duration(milliseconds: 100),
       () => _maybeCenterValue(),
     );
   }
@@ -207,12 +207,12 @@ class _NumberPickerState extends State<NumberPicker> {
     final itemStyle = value == widget.value ? selectedStyle : defaultStyle;
 
     final child = isExtra
-        ? SizedBox.shrink()
+        ? const SizedBox.shrink()
         : Container(
             width: widget.itemWidth,
             height: widget.itemHeight,
-            padding: EdgeInsets.all(15),
-            margin: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(15),
+            margin: const EdgeInsets.all(5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: (value + 3 == widget.value || value - 3 == widget.value)
@@ -236,7 +236,7 @@ class _NumberPickerState extends State<NumberPicker> {
                             ? AppColors.grey.withOpacity(0.5)
                             : AppColors.grey,
                 fontSize: 28,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w800,
               ),
             ),
           );
@@ -274,7 +274,7 @@ class _NumberPickerState extends State<NumberPicker> {
       }
       _scrollController.animateTo(
         index * itemExtent,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeOutCubic,
       );
     }
