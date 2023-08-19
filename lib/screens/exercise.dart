@@ -5,8 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
+import 'package:jawline_fitness/utils/svg_assets.dart';
 
 import '../widgets/counter.dart';
+import '../widgets/exercise_app_bar.dart';
 import 'rest.dart';
 
 class ExerciseScreen extends StatefulWidget {
@@ -66,34 +68,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
-      appBar: AppBar(
-        titleSpacing: 0,
-        toolbarHeight: 80,
-        leading: Icon(
-          Icons.chevron_left_rounded,
-          size: 40,
-          color: AppColors.grey,
-        ),
-        elevation: 0,
-        actions: [
-          Icon(
-            Icons.more_vert_rounded,
-            size: 28,
-            color: AppColors.grey,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-        title: Text(
-          'Day $day',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        backgroundColor: AppColors.lightBlack,
-        foregroundColor: AppColors.grey,
-      ),
+      appBar: ExerciseAppBar(day: day),
       body: Center(
         child: Column(
           children: [
@@ -113,20 +88,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
                 ),
                 child: Stack(
                   alignment: Alignment.center,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Container(
-                        width: SizeConfig.screenWidth,
-                        child: Transform.scale(
-                          scale: 1.35,
-                          child: SvgPicture.asset(
-                            "assets/line1.svg",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  children: [SvgAssets.line1],
                 ),
               ),
             ),

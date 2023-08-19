@@ -7,6 +7,8 @@ import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/counter.dart';
 
 import '../utils/size_config.dart';
+import '../utils/svg_assets.dart';
+import '../widgets/exercise_app_bar.dart';
 
 class RestScreen extends StatefulWidget {
   const RestScreen({super.key});
@@ -21,7 +23,6 @@ class _RestScreenState extends State<RestScreen> {
   int restTime = 300; // Current exercise time in seconds
   String nextExerciseName = "Side Raises";
   int nextExerciseTime = 300;
-
   void startTimer() {
     Timer.periodic(Duration(seconds: 1), (Timer timer) {
       if (restTime > 0) {
@@ -67,34 +68,7 @@ class _RestScreenState extends State<RestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
-      appBar: AppBar(
-        titleSpacing: 0,
-        toolbarHeight: 80,
-        leading: Icon(
-          Icons.chevron_left_rounded,
-          size: 40,
-          color: AppColors.grey,
-        ),
-        elevation: 0,
-        actions: [
-          Icon(
-            Icons.more_vert_rounded,
-            size: 28,
-            color: AppColors.grey,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-        title: Text(
-          'Day $day',
-          style: TextStyle(
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        backgroundColor: AppColors.lightBlack,
-        foregroundColor: AppColors.grey,
-      ),
+      appBar: ExerciseAppBar(day: day),
       body: Center(
         child: Column(
           children: [
@@ -115,18 +89,7 @@ class _RestScreenState extends State<RestScreen> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Container(
-                        width: SizeConfig.screenWidth,
-                        child: Transform.scale(
-                          scale: 1.35,
-                          child: SvgPicture.asset(
-                            "assets/line2.svg",
-                          ),
-                        ),
-                      ),
-                    ),
+                    SvgAssets.line2,
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

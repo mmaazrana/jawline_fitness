@@ -16,6 +16,13 @@ class AppStyles {
     color: AppColors.grey,
   );
 
+  static TextStyle alternateHeadingText = TextStyle(
+    fontSize: 32,
+    color: AppColors.yellow,
+    fontWeight: FontWeight.w900,
+    fontStyle: FontStyle.italic,
+  );
+
   static TextStyle primaryButtonText = const TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w800,
@@ -45,6 +52,7 @@ class AppStyles {
     fontFamily: Icons.chevron_left_rounded.fontFamily,
     package: Icons.chevron_left_rounded.fontPackage,
   );
+
   static ButtonStyle primaryButton = ElevatedButton.styleFrom(
     backgroundColor: AppColors.yellow,
     padding: const EdgeInsets.all(12),
