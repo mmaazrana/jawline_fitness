@@ -55,7 +55,7 @@ class SmoothLinearProgressButtonState extends State<SmoothLinearProgressButton>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 50,
       child: ElevatedButton(
         onPressed: widget.onPressed,

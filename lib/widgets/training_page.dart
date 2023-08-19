@@ -49,14 +49,14 @@ class TrainingPage extends StatelessWidget {
                         context, Routes.exerciseScreen);
                   },
                   style: AppStyles.primaryButton,
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         "Continue",
                         style: AppStyles.primaryButtonText,
                       ),
-                      const Icon(
+                      Icon(
                         Icons.chevron_right_rounded,
                         size: 24,
                         color: Colors.black,
@@ -94,14 +94,14 @@ class TrainingPage extends StatelessWidget {
                       context, Routes.exerciseScreen);
                 },
                 style: AppStyles.primaryButton,
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       "Continue",
                       style: AppStyles.primaryButtonText,
                     ),
-                    const Icon(
+                    Icon(
                       Icons.chevron_right_rounded,
                       size: 24,
                       color: Colors.black,

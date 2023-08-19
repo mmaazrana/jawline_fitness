@@ -243,7 +243,7 @@ class OnBoardingState extends State<OnBoarding> {
                                     Icons.chevron_left_rounded.codePoint),
                                 style: AppStyles.boldIconYellow,
                               ),
-                              Text(
+                              const Text(
                                 'Next',
                                 style: AppStyles.primaryButtonText,
                               ),
@@ -262,10 +262,10 @@ class OnBoardingState extends State<OnBoarding> {
                             onPressed: () {
                               _previousStep();
                             },
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.chevron_left,
                                   size: 22,
                                   color: AppColors.grey,
@@ -274,7 +274,7 @@ class OnBoardingState extends State<OnBoarding> {
                                   'Back',
                                   style: AppStyles.tertiaryButtonText,
                                 ),
-                                const Icon(
+                                Icon(
                                   Icons.chevron_left,
                                   size: 22,
                                   color: AppColors.lightBlack,

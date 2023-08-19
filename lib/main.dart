@@ -42,7 +42,7 @@ class MainApp extends StatelessWidget {
           Routes.home: (context) => const Home(),
           Routes.onBoarding: (context) => const OnBoarding(),
           Routes.splashScreen: (context) => const SplashScreen(),
-          Routes.exerciseScreen: (context) => ExerciseScreen(),
+          Routes.exerciseScreen: (context) => const ExerciseScreen(),
           Routes.restScreen: (context) => const RestScreen(),
           Routes.completeScreen: (context) => const ExcerciseCompleteScreen(),
         },

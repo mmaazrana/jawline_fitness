@@ -13,15 +13,15 @@ class Counter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.98),
                     offset: Offset(0, 13),
@@ -57,7 +57,7 @@ class Counter extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
               (currentExerciseTime ~/ 60).toString().padLeft(2, '0'),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 28,
                 height: 1,
                 fontWeight: FontWeight.w900,
@@ -65,11 +65,11 @@ class Counter extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
                   color: Color.fromRGBO(0, 0, 0, 0.98),
@@ -103,7 +103,7 @@ class Counter extends StatelessWidget {
                 ),
               ],
             ),
-            child: Text(
+            child: const Text(
               ":",
               style: TextStyle(
                 fontSize: 28,
@@ -113,13 +113,13 @@ class Counter extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.98),
                     offset: Offset(0, 13),
@@ -155,7 +155,7 @@ class Counter extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
               (currentExerciseTime % 60).toString().padLeft(2, '0'),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w900,
                 height: 1,

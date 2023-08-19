@@ -12,14 +12,14 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize =>
-      Size.fromHeight(80); // Customize the height as needed
+      const Size.fromHeight(80); // Customize the height as needed
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       titleSpacing: 0,
       toolbarHeight: 80,
-      leading: Icon(
+      leading: const Icon(
         Icons.chevron_left_rounded,
         size: 40,
         color: AppColors.grey,
@@ -28,19 +28,19 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {},
-          icon: Icon(
+          icon: const Icon(
             Icons.more_vert_rounded,
             size: 28,
             color: AppColors.grey,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
       ],
       title: Text(
         'Day $day',
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.w800,
         ),
       ),
