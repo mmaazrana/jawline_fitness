@@ -1,30 +1,30 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
-import 'package:jawline_fitness/utils/size_config.dart';
+import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
-
+import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
 import '../widgets/counter.dart';
 import '../widgets/exercise_app_bar.dart';
-import 'rest.dart';
+import '../widgets/exercise_name.dart';
 
 class ExerciseScreen extends StatefulWidget {
+  const ExerciseScreen({super.key});
+
   @override
-  _ExerciseScreenState createState() => _ExerciseScreenState();
+  ExerciseScreenState createState() => ExerciseScreenState();
 }
 
-class _ExerciseScreenState extends State<ExerciseScreen> {
-  int totalExerciseTime = 300; // Total exercise time in seconds
-  int currentExerciseTime = 300; // Current exercise time in seconds
+class ExerciseScreenState extends State<ExerciseScreen> {
+  int totalExerciseTime = 300;
+  int currentExerciseTime = 300;
   int day = 1;
   String exerciseName = "Lateral Raises";
   bool isPaused = false;
 
   void startTimer() {
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (!isPaused && currentExerciseTime > 0) {
         setState(() {
           currentExerciseTime--;
@@ -32,7 +32,6 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
       }
       if (currentExerciseTime <= 0) {
         timer.cancel();
-        // Navigate to RestScreen when exercise is completed
         Navigator.pushReplacementNamed(context, Routes.restScreen);
       }
     });
@@ -45,15 +44,13 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   void skipExercise() {
-    // Cancel the timer and navigate to RestScreen
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       timer.cancel();
-      Navigator.pushReplacementNamed(
-        context,
-        Routes.restScreen,
-      );
+      Navigator.pushReplacementNamed(context, Routes.restScreen);
     });
   }
+
+  void aboutExercise() {}
 
   @override
   void initState() {
@@ -74,18 +71,7 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           children: [
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.yellow,
-                      width: 3,
-                    ),
-                    top: BorderSide(
-                      color: AppColors.darkGrey,
-                      width: 3,
-                    ),
-                  ),
-                ),
+                decoration: AppStyles.illustrationContainer,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [SvgAssets.line1],
@@ -93,169 +79,80 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(42),
+              padding: const EdgeInsets.all(42),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '$exerciseName',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.grey,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(1),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.grey, width: 2),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Icon(
-                              Icons.question_mark_rounded,
-                              color: AppColors.grey,
-                              size: 14,
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
+                  ExerciseName(
+                    exerciseName: exerciseName,
+                    onHelpPressed: aboutExercise,
                   ),
-                  SizedBox(height: 35),
+                  const SizedBox(height: 35),
                   Counter(currentExerciseTime: currentExerciseTime),
-                  SizedBox(height: 35),
-                  AnimatedContainer(
-                    clipBehavior: Clip.antiAlias,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightBlack,
-                      border: Border.all(
-                        color: isPaused ? AppColors.yellow : AppColors.darkGrey,
-                        width: 2,
-                        strokeAlign: BorderSide.strokeAlignOutside,
-                      ),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    duration: const Duration(milliseconds: 300),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        pauseTimer();
-                      },
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                      ),
-                      child: Stack(
-                        children: [
-                          LinearProgressIndicator(
-                            value: progress,
-                            minHeight: 50,
-                            backgroundColor: AppColors.lightBlack,
-                            color: AppColors
-                                .darkGrey, // Change to your desired color
-                          ),
-                          Center(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  isPaused ? 'Resume' : 'Pause',
-                                  style: TextStyle(
-                                    color: AppColors.grey,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Icon(
-                                  isPaused ? Icons.play_arrow : Icons.pause,
-                                  color: AppColors.grey,
-                                  size: 28,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 35),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.skip_previous_outlined,
-                              color: AppColors.darkGrey,
-                              size: 18,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Text(
-                              'Previous',
-                              style: TextStyle(
-                                  color: AppColors.darkGrey,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          skipExercise();
-                        },
-                        style: ButtonStyle(
-                          padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.lightBlack),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Skip',
-                              style: TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Icon(
-                              Icons.skip_next_outlined,
-                              color: AppColors.grey,
-                              size: 18,
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  const SizedBox(height: 35),
+                  _buildPauseButton(progress),
+                  const SizedBox(height: 35),
+                  _buildActionButtons(),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildPauseButton(double progress) {
+    return AnimatedContainer(
+      clipBehavior: Clip.antiAlias,
+      height: 50,
+      decoration:
+          isPaused ? AppStyles.yellowOutline : AppStyles.darkGreyOutline,
+      duration: const Duration(milliseconds: 300),
+      child: ElevatedButton(
+        onPressed: pauseTimer,
+        style: AppStyles.zeroPadding,
+        child: Stack(
+          children: [
+            LinearProgressIndicator(
+              value: progress,
+              minHeight: 50,
+              backgroundColor: AppColors.lightBlack,
+              color: AppColors.darkGrey,
+            ),
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(isPaused ? 'Resume' : 'Pause',
+                      style: AppStyles.secondaryButtonText),
+                  const SizedBox(width: 5),
+                  Icon(isPaused ? Icons.play_arrow : Icons.pause,
+                      color: AppColors.grey, size: 28),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        TertiaryButton(
+          text: 'Previous',
+          icon: Icons.skip_previous_outlined,
+          onPressed: () {},
+          isDisabled: true,
+          isSkip: false,
+        ),
+        TertiaryButton(
+            text: 'Skip',
+            icon: Icons.skip_next_outlined,
+            onPressed: skipExercise),
+      ],
     );
   }
 }

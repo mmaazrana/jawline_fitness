@@ -23,9 +23,9 @@ class ExcerciseCompleteScreen extends StatelessWidget {
           const SizedBox(height: 50),
           SvgAssets.line3,
           const SizedBox(height: 50),
-          Text(
+          const Text(
             "Day Complete",
-            style: AppStyles.alternateHeadingText,
+            style: AppStyles.alternateHeading,
           ),
           const SizedBox(height: 75),
           const Padding(
@@ -40,7 +40,7 @@ class ExcerciseCompleteScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {},
               style: AppStyles.primaryButton,
-              child: Text(
+              child: const Text(
                 "Done",
                 style: AppStyles.primaryButtonText,
               ),

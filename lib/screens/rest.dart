@@ -1,14 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/counter.dart';
-
-import '../utils/size_config.dart';
+import '../utils/styles.dart';
 import '../utils/svg_assets.dart';
+import '../widgets/buttons/secondary_button.dart';
+import '../widgets/buttons/tertiary_button.dart';
 import '../widgets/exercise_app_bar.dart';
+import '../widgets/exercise_name.dart';
 
 class RestScreen extends StatefulWidget {
   const RestScreen({super.key});
@@ -19,12 +19,11 @@ class RestScreen extends StatefulWidget {
 
 class _RestScreenState extends State<RestScreen> {
   int day = 1;
-  // int totalExerciseTime = 300; // Total exercise time in seconds
   int restTime = 300; // Current exercise time in seconds
   String nextExerciseName = "Side Raises";
   int nextExerciseTime = 300;
   void startTimer() {
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (restTime > 0) {
         setState(() {
           restTime--;
@@ -49,7 +48,7 @@ class _RestScreenState extends State<RestScreen> {
 
   void skipRest() {
     // Cancel the timer and navigate to RestScreen
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       timer.cancel();
       Navigator.pushReplacementNamed(
         context,
@@ -64,205 +63,70 @@ class _RestScreenState extends State<RestScreen> {
     startTimer();
   }
 
+  void aboutExercise() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: ExerciseAppBar(day: day),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: AppColors.yellow,
-                      width: 3,
-                    ),
-                    top: BorderSide(
-                      color: AppColors.darkGrey,
-                      width: 3,
-                    ),
-                  ),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SvgAssets.line2,
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Rest Break",
-                            style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              fontSize: 32,
-                              color: AppColors.grey,
-                            )),
-                        SizedBox(
-                          height: 45,
-                        ),
-                        Counter(currentExerciseTime: restTime),
-                        SizedBox(
-                          height: 45,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            incrementTimer();
-                          },
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                EdgeInsets.fromLTRB(37, 12, 37, 12)),
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.darkGrey),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.add_rounded,
-                                color: AppColors.grey,
-                                size: 24,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                '20 sec',
-                                style: TextStyle(
-                                    color: AppColors.grey,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w800),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            skipRest();
-                          },
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                            backgroundColor:
-                                MaterialStateProperty.all(AppColors.lightBlack),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Skip',
-                                style: TextStyle(
-                                    color: AppColors.grey,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Icon(
-                                Icons.skip_next_outlined,
-                                color: AppColors.grey,
-                                size: 18,
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(25, 35, 25, 35),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Container(
+              decoration: AppStyles.illustrationContainer,
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  Text(
-                    'Upcoming',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.grey,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
+                  SvgAssets.line2,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        '$nextExerciseName',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.grey,
-                        ),
+                      const Text(
+                        "Rest Break",
+                        style: AppStyles.secondaryHeading,
                       ),
-                      SizedBox(
-                        width: 30,
-                        height: 30,
-                        child: TextButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            padding: MaterialStateProperty.all(EdgeInsets.zero),
-                          ),
-                          child: Container(
-                            padding: EdgeInsets.all(1),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: AppColors.grey, width: 2),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Icon(
-                              Icons.question_mark_rounded,
-                              color: AppColors.grey,
-                              size: 14,
-                            ),
-                          ),
-                        ),
-                      )
+                      const SizedBox(height: 45),
+                      Counter(currentExerciseTime: restTime),
+                      const SizedBox(height: 45),
+                      SecondaryButton(
+                        onPressed: skipRest,
+                      ),
+                      const SizedBox(height: 15),
+                      TertiaryButton(
+                          text: 'Skip',
+                          icon: Icons.skip_next_outlined,
+                          onPressed: skipRest),
                     ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        (nextExerciseTime ~/ 60).toString().padLeft(2, '0'),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.yellow,
-                        ),
-                      ),
-                      Text(
-                        ':',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.yellow,
-                        ),
-                      ),
-                      Text(
-                        (nextExerciseTime % 60).toString().padLeft(2, '0'),
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.yellow,
-                        ),
-                      ),
-                    ],
-                  ),
+                  )
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(25, 35, 25, 35),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Upcoming',
+                  style: AppStyles.alternateDescription,
+                ),
+                const SizedBox(height: 10),
+                ExerciseName(
+                  exerciseName: nextExerciseName,
+                  onHelpPressed: aboutExercise,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                  style: AppStyles.alternateCounterText,
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -183,7 +183,8 @@ class OnBoardingState extends State<OnBoarding> {
                 onChanged: (value) => setState(() => _currentValue = value),
               ),
               SvgPicture.asset("assets/pointer.svg",
-                  colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  colorFilter:
+                      const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                   semanticsLabel: 'A red up arrow'),
             ],
           ),
@@ -257,7 +258,7 @@ class OnBoardingState extends State<OnBoarding> {
                         const SizedBox(height: 5),
                         if (currentStep > 0)
                           TextButton(
-                            style: AppStyles.secondaryButton,
+                            style: AppStyles.tertiaryButton,
                             onPressed: () {
                               _previousStep();
                             },
@@ -271,7 +272,7 @@ class OnBoardingState extends State<OnBoarding> {
                                 ),
                                 Text(
                                   'Back',
-                                  style: AppStyles.secondaryButtonText,
+                                  style: AppStyles.tertiaryButtonText,
                                 ),
                                 const Icon(
                                   Icons.chevron_left,
