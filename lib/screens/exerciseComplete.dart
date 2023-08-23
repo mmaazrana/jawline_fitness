@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import '../widgets/alarm_card.dart';
 import '../widgets/exercise_app_bar.dart';
 
-class ExcerciseCompleteScreen extends StatelessWidget {
+class ExcerciseCompleteScreen extends StatefulWidget {
+  const ExcerciseCompleteScreen({super.key});
+
+  @override
+  State<ExcerciseCompleteScreen> createState() =>
+      _ExcerciseCompleteScreenState();
+}
+
+class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
   final int day = 1;
 
-  const ExcerciseCompleteScreen({super.key});
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    SizeConfig().init(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +34,11 @@ class ExcerciseCompleteScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(height: 50),
-          SvgAssets.line3,
+          SvgAssets.createLineSvg(
+            SvgAssets.line1,
+            SizeConfig.screenWidth,
+            SizeConfig.screenHeight,
+          ),
           const SizedBox(height: 50),
           const Text(
             "Day Complete",

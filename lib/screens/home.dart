@@ -37,9 +37,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape = SizeConfig.orientation == Orientation.landscape ||
-        SizeConfig.screenWidth > 720;
-
     final bottomNavigationBar = BottomNavigationBar(
       backgroundColor: AppColors.lightBlack,
       selectedItemColor: AppColors.yellow,
@@ -77,7 +74,7 @@ class _HomeState extends State<Home> {
       ],
     );
 
-    if (isLandscape) {
+    if (SizeConfig.isLandscape) {
       return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.lightBlack,

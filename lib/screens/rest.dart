@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/counter.dart';
+import '../utils/size_config.dart';
 import '../utils/styles.dart';
 import '../utils/svg_assets.dart';
 import '../widgets/buttons/secondary_button.dart';
@@ -66,68 +67,143 @@ class _RestScreenState extends State<RestScreen> {
   void aboutExercise() {}
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    SizeConfig().init(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: ExerciseAppBar(day: day),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Container(
-              decoration: AppStyles.illustrationContainer,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgAssets.line2,
-                  Column(
+      body: SizeConfig.isLandscape
+          ? Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: AppStyles.rightOutlineYellow,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgAssets.createLineSvg(
+                          SvgAssets.line1,
+                          SizeConfig.screenWidth,
+                          SizeConfig.screenHeight,
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Rest Break",
+                                style: AppStyles.secondaryHeading,
+                              ),
+                              const SizedBox(height: 25),
+                              Counter(currentExerciseTime: restTime),
+                              const SizedBox(height: 25),
+                              SecondaryButton(
+                                onPressed: incrementTimer,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Rest Break",
-                        style: AppStyles.secondaryHeading,
+                        'Upcoming',
+                        style: AppStyles.alternateDescription,
                       ),
-                      const SizedBox(height: 45),
-                      Counter(currentExerciseTime: restTime),
-                      const SizedBox(height: 45),
-                      SecondaryButton(
-                        onPressed: skipRest,
+                      const SizedBox(height: 10),
+                      ExerciseName(
+                        exerciseName: nextExerciseName,
+                        onHelpPressed: aboutExercise,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                        style: AppStyles.alternateCounterText,
                       ),
                       const SizedBox(height: 15),
                       TertiaryButton(
-                          text: 'Skip',
+                          text: 'Skip Rest',
                           icon: Icons.skip_next_outlined,
                           onPressed: skipRest),
                     ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(25, 35, 25, 35),
-            child: Column(
+                  ),
+                ),
+              ],
+            )
+          : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Upcoming',
-                  style: AppStyles.alternateDescription,
+                Expanded(
+                  child: Container(
+                    decoration: AppStyles.bottomOutlineYellow,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SvgAssets.createLineSvg(
+                          SvgAssets.line1,
+                          SizeConfig.screenWidth,
+                          SizeConfig.screenHeight,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Rest Break",
+                              style: AppStyles.secondaryHeading,
+                            ),
+                            const SizedBox(height: 45),
+                            Counter(currentExerciseTime: restTime),
+                            const SizedBox(height: 45),
+                            SecondaryButton(
+                              onPressed: skipRest,
+                            ),
+                            const SizedBox(height: 15),
+                            TertiaryButton(
+                                text: 'Skip',
+                                icon: Icons.skip_next_outlined,
+                                onPressed: skipRest),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 10),
-                ExerciseName(
-                  exerciseName: nextExerciseName,
-                  onHelpPressed: aboutExercise,
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
-                  style: AppStyles.alternateCounterText,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(25, 35, 25, 35),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Upcoming',
+                        style: AppStyles.alternateDescription,
+                      ),
+                      const SizedBox(height: 10),
+                      ExerciseName(
+                        exerciseName: nextExerciseName,
+                        onHelpPressed: aboutExercise,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                        style: AppStyles.alternateCounterText,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

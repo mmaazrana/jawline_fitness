@@ -5,6 +5,7 @@ import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
+import '../utils/size_config.dart';
 import '../widgets/counter.dart';
 import '../widgets/exercise_app_bar.dart';
 import '../widgets/exercise_name.dart';
@@ -22,6 +23,12 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   int day = 1;
   String exerciseName = "Lateral Raises";
   bool isPaused = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    SizeConfig().init(context);
+  }
 
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
@@ -64,39 +71,91 @@ class ExerciseScreenState extends State<ExerciseScreen> {
         (totalExerciseTime - currentExerciseTime) / totalExerciseTime;
 
     return Scaffold(
-      backgroundColor: AppColors.lightBlack,
-      appBar: ExerciseAppBar(day: day),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: AppStyles.illustrationContainer,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [SvgAssets.line1],
-                ),
+        backgroundColor: AppColors.lightBlack,
+        appBar: ExerciseAppBar(day: day),
+        body: SizeConfig.isLandscape
+            ? _buildLandscapeLayout(progress)
+            : buildPortraitLayout(progress));
+  }
+
+  Center buildPortraitLayout(double progress) {
+    return Center(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: AppStyles.bottomOutlineYellow,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgAssets.createLineSvg(SvgAssets.line1,
+                      SizeConfig.screenWidth, SizeConfig.screenHeight * 0.5)
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(42),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(42),
+            child: Column(
+              children: [
+                ExerciseName(
+                  exerciseName: exerciseName,
+                  onHelpPressed: aboutExercise,
+                ),
+                const SizedBox(height: 35),
+                Counter(currentExerciseTime: currentExerciseTime),
+                const SizedBox(height: 35),
+                _buildPauseButton(progress),
+                const SizedBox(height: 35),
+                _buildActionButtons(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Center _buildLandscapeLayout(double progress) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Container(
+              width: SizeConfig.screenWidth * 0.5,
+              height: SizeConfig.screenHeight,
+              decoration: AppStyles.rightOutlineYellow,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SvgAssets.createLineSvg(SvgAssets.line1,
+                      SizeConfig.screenWidth * 0.5, SizeConfig.screenHeight)
+                ],
+              ),
+            ),
+          ),
+          Container(
+            width: SizeConfig.screenWidth * 0.5,
+            padding: const EdgeInsets.fromLTRB(42, 0, 42, 0),
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   ExerciseName(
                     exerciseName: exerciseName,
                     onHelpPressed: aboutExercise,
                   ),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 25),
                   Counter(currentExerciseTime: currentExerciseTime),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 25),
                   _buildPauseButton(progress),
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 5),
                   _buildActionButtons(),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

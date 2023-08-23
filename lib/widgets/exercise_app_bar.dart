@@ -19,10 +19,15 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       titleSpacing: 0,
       toolbarHeight: 80,
-      leading: const Icon(
-        Icons.chevron_left_rounded,
-        size: 40,
-        color: AppColors.grey,
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: const Icon(
+          Icons.chevron_left_rounded,
+          size: 40,
+          color: AppColors.grey,
+        ),
       ),
       elevation: 0,
       actions: [
@@ -46,6 +51,13 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       backgroundColor: AppColors.lightBlack,
       foregroundColor: AppColors.grey,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(2.0), // Border height
+        child: Container(
+          color: AppColors.darkGrey, // Border color
+          height: 3,
+        ),
+      ),
     );
   }
 }

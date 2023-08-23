@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:jawline_fitness/utils/colors.dart';
 import 'size_config.dart';
 
 class SvgAssets {
-  static FittedBox createLineSvg(String svgAssetPath) {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
+  static Widget createLineSvg(
+      String svgAssetPath, double? width, double? height) {
+    return ClipRRect(
       child: SizedBox(
-        width: SizeConfig.screenWidth,
+        width: width,
+        height: height,
         child: Transform.scale(
+          alignment: Alignment.center,
           scale: 1.35,
           child: SvgPicture.asset(
             svgAssetPath,
@@ -18,10 +21,10 @@ class SvgAssets {
     );
   }
 
-  static final FittedBox line1 = createLineSvg("assets/line1.svg");
-  static final FittedBox line2 = createLineSvg("assets/line2.svg");
-  static final FittedBox line3 = createLineSvg("assets/line3.svg");
-  static final FittedBox line4 = createLineSvg("assets/line4.svg");
-  static final FittedBox line5 = createLineSvg("assets/line5.svg");
-  static final FittedBox line6 = createLineSvg("assets/line6.svg");
+  static const String line1 = "assets/line1.svg";
+  static const String line2 = "assets/line2.svg";
+  static const String line3 = "assets/line3.svg";
+  static const String line4 = "assets/line4.svg";
+  static const String line5 = "assets/line5.svg";
+  static const String line6 = "assets/line6.svg";
 }

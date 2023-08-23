@@ -10,7 +10,7 @@ class SizeConfig {
   static late double imageSizeMultiplier;
   static late double heightMultiplier;
   static late Orientation orientation;
-
+  static late bool isLandscape;
   void init(BuildContext context) {
     final MediaQueryData mediaQuery = MediaQuery.of(context);
     screenWidth = mediaQuery.size.width;
@@ -21,5 +21,6 @@ class SizeConfig {
     textMultiplier = blockSizeVertical;
     imageSizeMultiplier = blockSizeHorizontal;
     orientation = mediaQuery.orientation;
+    isLandscape = orientation == Orientation.landscape || screenWidth > 720;
   }
 }

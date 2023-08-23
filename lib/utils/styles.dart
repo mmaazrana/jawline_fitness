@@ -134,14 +134,19 @@ class AppStyles {
     backgroundColor: AppColors.lightBlack,
   );
 
-  static const BoxDecoration illustrationContainer = BoxDecoration(
+  static const BoxDecoration bottomOutlineYellow = BoxDecoration(
     border: Border(
       bottom: BorderSide(
         color: AppColors.yellow,
         width: 3,
       ),
-      top: BorderSide(
-        color: AppColors.darkGrey,
+    ),
+  );
+
+  static const BoxDecoration rightOutlineYellow = BoxDecoration(
+    border: Border(
+      right: BorderSide(
+        color: AppColors.yellow,
         width: 3,
       ),
     ),

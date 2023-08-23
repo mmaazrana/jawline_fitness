@@ -45,8 +45,7 @@ class TrainingPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, Routes.exerciseScreen);
+                    Navigator.pushNamed(context, Routes.exerciseScreen);
                   },
                   style: AppStyles.primaryButton,
                   child: const Row(
