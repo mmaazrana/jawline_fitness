@@ -173,16 +173,21 @@ class OnBoardingState extends State<OnBoarding> {
               SvgPicture.asset(
                 "assets/pointer.svg",
               ),
-              NumberPicker(
-                value: _currentValue,
-                minValue: 18,
-                maxValue: 90,
-                step: 1,
-                haptics: true,
-                itemCount: 5,
-                itemHeight: 80,
-                itemWidth: SizeConfig.screenWidth - 120,
-                onChanged: (value) => setState(() => _currentValue = value),
+              SizedBox(
+                width: SizeConfig.isLandscape
+                    ? SizeConfig.screenWidth - 382
+                    : SizeConfig.screenWidth - 82,
+                child: NumberPicker(
+                  value: _currentValue,
+                  minValue: 18,
+                  maxValue: 90,
+                  step: 1,
+                  haptics: true,
+                  itemCount: 5,
+                  itemHeight: 80,
+                  itemWidth: SizeConfig.screenWidth - 120,
+                  onChanged: (value) => setState(() => _currentValue = value),
+                ),
               ),
               SvgPicture.asset("assets/pointer.svg",
                   colorFilter: const ColorFilter.mode(
@@ -228,9 +233,6 @@ class OnBoardingState extends State<OnBoarding> {
                             width: SizeConfig.screenWidth - 350,
                             child: Column(
                               children: [
-                                const SizedBox(height: 10),
-                                CustomStepper(step: currentStep),
-                                const SizedBox(height: 25),
                                 Text(
                                   Constants.steps[currentStep]["heading"]!,
                                   style: AppStyles.heading,
@@ -245,6 +247,8 @@ class OnBoardingState extends State<OnBoarding> {
                                 const Spacer(),
                                 stepsContent[currentStep],
                                 const Spacer(),
+                                const SizedBox(height: 15),
+                                CustomStepper(step: currentStep),
                                 const SizedBox(height: 15),
                               ],
                             ),
