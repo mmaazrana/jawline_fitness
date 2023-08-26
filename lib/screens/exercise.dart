@@ -75,10 +75,10 @@ class ExerciseScreenState extends State<ExerciseScreen> {
         appBar: ExerciseAppBar(day: day),
         body: SizeConfig.isLandscape
             ? _buildLandscapeLayout(progress)
-            : buildPortraitLayout(progress));
+            : _buildPortraitLayout(progress));
   }
 
-  Center buildPortraitLayout(double progress) {
+  Center _buildPortraitLayout(double progress) {
     return Center(
       child: Column(
         children: [

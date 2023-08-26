@@ -13,37 +13,69 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: SizeConfig.screenWidth,
-      padding: const EdgeInsets.fromLTRB(34, 0, 34, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            "Settings",
-            style: TextStyle(
-              fontSize: 30,
-              color: AppColors.grey,
-              fontWeight: FontWeight.w800,
+    return SingleChildScrollView(
+      child: Container(
+        width: SizeConfig.screenWidth,
+        padding: const EdgeInsets.fromLTRB(34, 0, 34, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              "Settings",
+              style: TextStyle(
+                fontSize: 30,
+                color: AppColors.grey,
+                fontWeight: FontWeight.w800,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: SizeConfig.screenWidth - (34 * 2),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(
-                  color: AppColors.darkGrey,
-                  width: 3,
-                )),
-            child: const Column(
-              children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: SizeConfig.screenWidth - (34 * 2),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: AppColors.darkGrey,
+                    width: 3,
+                  )),
+              child: const Column(
+                children: [
+                  Text(
+                    "General Settings",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: AppColors.grey,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  SettingButton(
+                    text: "Custom Reminders",
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: SizeConfig.screenWidth - (34 * 2),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(
+                    color: AppColors.darkGrey,
+                    width: 3,
+                  )),
+              child: const Column(children: [
                 Text(
-                  "General Settings",
+                  "Excercise Settings",
                   style: TextStyle(
                     fontSize: 24,
                     color: AppColors.grey,
@@ -55,54 +87,24 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 15,
                 ),
                 SettingButton(
-                  text: "Custom Reminders",
+                  text: "Rest Duration",
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Container(
-            width: SizeConfig.screenWidth - (34 * 2),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                border: Border.all(
-                  color: AppColors.darkGrey,
-                  width: 3,
-                )),
-            child: const Column(children: [
-              Text(
-                "Excercise Settings",
-                style: TextStyle(
-                  fontSize: 24,
-                  color: AppColors.grey,
-                  fontWeight: FontWeight.w800,
+                SizedBox(
+                  height: 15,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              SettingButton(
-                text: "Rest Duration",
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              SettingButton(
-                text: "Voice Guide",
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              SettingButton(
-                text: "Duration",
-              ),
-            ]),
-          )
-        ],
+                SettingButton(
+                  text: "Voice Guide",
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                SettingButton(
+                  text: "Duration",
+                ),
+              ]),
+            )
+          ],
+        ),
       ),
     );
   }

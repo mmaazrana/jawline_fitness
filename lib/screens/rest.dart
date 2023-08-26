@@ -78,132 +78,140 @@ class _RestScreenState extends State<RestScreen> {
       backgroundColor: AppColors.lightBlack,
       appBar: ExerciseAppBar(day: day),
       body: SizeConfig.isLandscape
-          ? Row(
+          ? _buildLandscapeLayout()
+          : _buildPortraitLayout(),
+    );
+  }
+
+  Column _buildPortraitLayout() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Container(
+            decoration: AppStyles.bottomOutlineYellow,
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                Expanded(
-                  child: Container(
-                    decoration: AppStyles.rightOutlineYellow,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SvgAssets.createLineSvg(
-                          SvgAssets.line1,
-                          SizeConfig.screenWidth,
-                          SizeConfig.screenHeight,
-                        ),
-                        SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                "Rest Break",
-                                style: AppStyles.secondaryHeading,
-                              ),
-                              const SizedBox(height: 25),
-                              Counter(currentExerciseTime: restTime),
-                              const SizedBox(height: 25),
-                              SecondaryButton(
-                                onPressed: incrementTimer,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                SvgAssets.createLineSvg(
+                  SvgAssets.line4,
+                  SizeConfig.screenWidth,
+                  SizeConfig.screenHeight,
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Rest Break",
+                      style: AppStyles.secondaryHeading,
+                    ),
+                    const SizedBox(height: 45),
+                    Counter(currentExerciseTime: restTime),
+                    const SizedBox(height: 45),
+                    SecondaryButton(
+                      onPressed: incrementTimer,
+                    ),
+                    const SizedBox(height: 15),
+                    TertiaryButton(
+                        text: 'Skip',
+                        icon: Icons.skip_next_outlined,
+                        onPressed: skipRest),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25, 35, 25, 35),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Upcoming',
+                style: AppStyles.alternateDescription,
+              ),
+              const SizedBox(height: 10),
+              ExerciseName(
+                exerciseName: nextExerciseName,
+                onHelpPressed: aboutExercise,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                style: AppStyles.alternateCounterText,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _buildLandscapeLayout() {
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            decoration: AppStyles.rightOutlineYellow,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SvgAssets.createLineSvg(
+                  SvgAssets.line4,
+                  SizeConfig.screenWidth,
+                  SizeConfig.screenHeight,
+                ),
+                SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Upcoming',
-                        style: AppStyles.alternateDescription,
+                        "Rest Break",
+                        style: AppStyles.secondaryHeading,
                       ),
-                      const SizedBox(height: 10),
-                      ExerciseName(
-                        exerciseName: nextExerciseName,
-                        onHelpPressed: aboutExercise,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
-                        style: AppStyles.alternateCounterText,
-                      ),
-                      const SizedBox(height: 15),
-                      TertiaryButton(
-                          text: 'Skip Rest',
-                          icon: Icons.skip_next_outlined,
-                          onPressed: skipRest),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    decoration: AppStyles.bottomOutlineYellow,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SvgAssets.createLineSvg(
-                          SvgAssets.line1,
-                          SizeConfig.screenWidth,
-                          SizeConfig.screenHeight,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Rest Break",
-                              style: AppStyles.secondaryHeading,
-                            ),
-                            const SizedBox(height: 45),
-                            Counter(currentExerciseTime: restTime),
-                            const SizedBox(height: 45),
-                            SecondaryButton(
-                              onPressed: skipRest,
-                            ),
-                            const SizedBox(height: 15),
-                            TertiaryButton(
-                                text: 'Skip',
-                                icon: Icons.skip_next_outlined,
-                                onPressed: skipRest),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(25, 35, 25, 35),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Upcoming',
-                        style: AppStyles.alternateDescription,
-                      ),
-                      const SizedBox(height: 10),
-                      ExerciseName(
-                        exerciseName: nextExerciseName,
-                        onHelpPressed: aboutExercise,
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
-                        style: AppStyles.alternateCounterText,
+                      const SizedBox(height: 25),
+                      Counter(currentExerciseTime: restTime),
+                      const SizedBox(height: 25),
+                      SecondaryButton(
+                        onPressed: incrementTimer,
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Upcoming',
+                style: AppStyles.alternateDescription,
+              ),
+              const SizedBox(height: 10),
+              ExerciseName(
+                exerciseName: nextExerciseName,
+                onHelpPressed: aboutExercise,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                style: AppStyles.alternateCounterText,
+              ),
+              const SizedBox(height: 15),
+              TertiaryButton(
+                  text: 'Skip Rest',
+                  icon: Icons.skip_next_outlined,
+                  onPressed: skipRest),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

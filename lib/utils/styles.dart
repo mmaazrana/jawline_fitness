@@ -171,4 +171,11 @@ class AppStyles {
     ),
     borderRadius: BorderRadius.circular(100),
   );
+
+  static BoxDecoration calendarBorder = BoxDecoration(
+      borderRadius: BorderRadius.circular(18),
+      border: Border.all(
+        color: AppColors.darkGrey,
+        width: 3,
+      ));
 }

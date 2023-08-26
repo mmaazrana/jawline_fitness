@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/colors.dart';
+
 class ExampleAlarmTile extends StatelessWidget {
   final String title;
   final void Function() onPressed;
@@ -26,7 +28,7 @@ class ExampleAlarmTile extends StatelessWidget {
         child: const Icon(
           Icons.delete,
           size: 30,
-          color: Colors.white,
+          color: AppColors.white,
         ),
       ),
       onDismissed: (_) => onDismissed?.call(),

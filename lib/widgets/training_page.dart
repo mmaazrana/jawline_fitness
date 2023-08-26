@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/widgets/levels_list.dart';
 
+import '../utils/colors.dart';
 import '../utils/routes.dart';
 import '../utils/size_config.dart';
 import '../utils/styles.dart';
@@ -58,7 +59,7 @@ class TrainingPage extends StatelessWidget {
                       Icon(
                         Icons.chevron_right_rounded,
                         size: 24,
-                        color: Colors.black,
+                        color: AppColors.lightBlack,
                       ),
                     ],
                   ),
@@ -103,7 +104,7 @@ class TrainingPage extends StatelessWidget {
                     Icon(
                       Icons.chevron_right_rounded,
                       size: 24,
-                      color: Colors.black,
+                      color: AppColors.lightBlack,
                     ),
                   ],
                 ),

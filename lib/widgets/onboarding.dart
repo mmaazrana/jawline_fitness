@@ -4,6 +4,7 @@ import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/widgets/alarm_card.dart';
+import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
 import 'package:jawline_fitness/widgets/stepper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,7 @@ import '../models/user.dart';
 import '../utils/constants.dart';
 import '../utils/data_provider.dart';
 import '../utils/routes.dart';
+import 'buttons/primary_button.dart';
 import 'number_picker.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -183,8 +185,8 @@ class OnBoardingState extends State<OnBoarding> {
                 onChanged: (value) => setState(() => _currentValue = value),
               ),
               SvgPicture.asset("assets/pointer.svg",
-                  colorFilter:
-                      const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(
+                      AppColors.lightBlack, BlendMode.srcIn),
                   semanticsLabel: 'A red up arrow'),
             ],
           ),
@@ -203,90 +205,102 @@ class OnBoardingState extends State<OnBoarding> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: SafeArea(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                // height: SizeConfig.screenHeight,
-                child: Column(
-                  children: [
-                    const SizedBox(height: 25),
-                    CustomStepper(step: currentStep),
-                    const SizedBox(height: 50),
-                    Text(
-                      Constants.steps[currentStep]["heading"]!,
-                      style: AppStyles.heading,
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      Constants.steps[currentStep]["description"]!,
-                      style: AppStyles.description,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 25),
-                    const Spacer(),
-                    stepsContent[currentStep],
-                    const Spacer(),
-                    const SizedBox(height: 25),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            _nextStep(context);
-                          },
-                          style: AppStyles.primaryButton,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                String.fromCharCode(
-                                    Icons.chevron_left_rounded.codePoint),
-                                style: AppStyles.boldIconYellow,
-                              ),
-                              const Text(
-                                'Next',
-                                style: AppStyles.primaryButtonText,
-                              ),
-                              Text(
-                                String.fromCharCode(
-                                    Icons.chevron_right_rounded.codePoint),
-                                style: AppStyles.boldIconBlack,
-                              ),
-                            ],
+              child: SizeConfig.isLandscape
+                  ? Container(
+                      padding: const EdgeInsets.all(25),
+                      // height: SizeConfig.screenHeight,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 125,
+                            alignment: Alignment.centerLeft,
+                            child: (currentStep > 0)
+                                ? TertiaryButton(
+                                    text: 'Back',
+                                    icon: Icons.chevron_left,
+                                    isSkip: false,
+                                    onPressed: _previousStep)
+                                : null,
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        if (currentStep > 0)
-                          TextButton(
-                            style: AppStyles.tertiaryButton,
-                            onPressed: () {
-                              _previousStep();
-                            },
-                            child: const Row(
-                              mainAxisSize: MainAxisSize.min,
+                          SizedBox(
+                            width: SizeConfig.screenWidth - 350,
+                            child: Column(
                               children: [
-                                Icon(
-                                  Icons.chevron_left,
-                                  size: 22,
-                                  color: AppColors.grey,
-                                ),
+                                const SizedBox(height: 10),
+                                CustomStepper(step: currentStep),
+                                const SizedBox(height: 25),
                                 Text(
-                                  'Back',
-                                  style: AppStyles.tertiaryButtonText,
+                                  Constants.steps[currentStep]["heading"]!,
+                                  style: AppStyles.heading,
                                 ),
-                                Icon(
-                                  Icons.chevron_left,
-                                  size: 22,
-                                  color: AppColors.lightBlack,
+                                const SizedBox(height: 5),
+                                Text(
+                                  Constants.steps[currentStep]["description"]!,
+                                  style: AppStyles.description,
+                                  textAlign: TextAlign.center,
                                 ),
+                                const SizedBox(height: 15),
+                                const Spacer(),
+                                stepsContent[currentStep],
+                                const Spacer(),
+                                const SizedBox(height: 15),
                               ],
                             ),
                           ),
-                      ],
+                          SizedBox(
+                            width: 125,
+                            child: PrimaryButton(
+                              onPressed: _nextStep,
+                              fullWidth: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.all(25),
+                      // height: SizeConfig.screenHeight,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 25),
+                          CustomStepper(step: currentStep),
+                          const SizedBox(height: 50),
+                          Text(
+                            Constants.steps[currentStep]["heading"]!,
+                            style: AppStyles.heading,
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            Constants.steps[currentStep]["description"]!,
+                            style: AppStyles.description,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 25),
+                          const Spacer(),
+                          stepsContent[currentStep],
+                          const Spacer(),
+                          const SizedBox(height: 25),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              PrimaryButton(
+                                onPressed: _nextStep,
+                              ),
+                              const SizedBox(height: 5),
+                              if (currentStep > 0)
+                                TertiaryButton(
+                                    text: 'Back',
+                                    icon: Icons.chevron_left,
+                                    isSkip: false,
+                                    onPressed: _previousStep),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
             ),
           ),
         ],

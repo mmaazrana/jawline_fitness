@@ -28,43 +28,94 @@ class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: ExerciseAppBar(day: day),
-      body: Center(
-          child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox(height: 50),
-          SvgAssets.createLineSvg(
-            SvgAssets.line1,
-            SizeConfig.screenWidth,
-            SizeConfig.screenHeight,
-          ),
-          const SizedBox(height: 50),
-          const Text(
-            "Day Complete",
-            style: AppStyles.alternateHeading,
-          ),
-          const SizedBox(height: 75),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(22, 0, 22, 0),
-            child: AlarmCard(
-              alarmSettings: null,
-            ),
-          ),
-          const SizedBox(height: 75),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(42, 0, 42, 42),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: AppStyles.primaryButton,
-              child: const Text(
-                "Done",
-                style: AppStyles.primaryButtonText,
-              ),
-            ),
-          ),
-        ],
-      )),
+      body: SizeConfig.isLandscape
+          ? Stack(
+              children: [
+                SvgAssets.createLineSvg(
+                  SvgAssets.line2,
+                  SizeConfig.screenWidth,
+                  SizeConfig.screenHeight,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: 25),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(42, 0, 42, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Day Complete",
+                            style: AppStyles.alternateHeading,
+                          ),
+                          SizedBox(
+                            width: 250,
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: AppStyles.primaryButton,
+                              child: const Text(
+                                "Done",
+                                style: AppStyles.primaryButtonText,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                      child: AlarmCard(
+                        alarmSettings: null,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                  ],
+                ),
+              ],
+            )
+          : Center(
+              child: Stack(
+              children: [
+                SvgAssets.createLineSvg(
+                  SvgAssets.line2,
+                  SizeConfig.screenWidth,
+                  SizeConfig.screenHeight,
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(height: 50),
+                    const Text(
+                      "Day Complete",
+                      style: AppStyles.alternateHeading,
+                    ),
+                    const SizedBox(height: 75),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(22, 0, 22, 0),
+                      child: AlarmCard(
+                        alarmSettings: null,
+                      ),
+                    ),
+                    const SizedBox(height: 75),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(42, 0, 42, 42),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: AppStyles.primaryButton,
+                        child: const Text(
+                          "Done",
+                          style: AppStyles.primaryButtonText,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            )),
     );
   }
 }
