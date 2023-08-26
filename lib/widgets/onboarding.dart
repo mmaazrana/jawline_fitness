@@ -11,11 +11,11 @@ import '../utils/constants.dart';
 import '../utils/data_provider.dart';
 import '../utils/routes.dart';
 import 'buttons/primary_button.dart';
-import 'onboarding/step_five.dart';
-import 'onboarding/step_four.dart';
-import 'onboarding/step_one.dart';
-import 'onboarding/step_three.dart';
-import 'onboarding/step_two.dart';
+import 'onboarding_steps/step_five.dart';
+import 'onboarding_steps/step_four.dart';
+import 'onboarding_steps/step_one.dart';
+import 'onboarding_steps/step_three.dart';
+import 'onboarding_steps/step_two.dart';
 
 class OnBoarding extends StatefulWidget {
   const OnBoarding({
