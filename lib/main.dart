@@ -71,8 +71,8 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isOnBoardedData = prefs.getBool('isOnboarded') ?? false;
     setState(() {
-      // isOnboarded = isOnBoardedData;
-      isOnboarded = false; //hard coded for testing
+      isOnboarded = isOnBoardedData;
+      // isOnboarded = false; //hard coded for testing
     });
   }
 
