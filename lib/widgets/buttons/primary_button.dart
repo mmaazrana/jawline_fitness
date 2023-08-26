@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/styles.dart';
 
 class PrimaryButton extends StatelessWidget {
-  final void Function(BuildContext) onPressed;
+  final void Function() onPressed;
   final bool fullWidth;
   const PrimaryButton({
     super.key,
@@ -15,7 +15,7 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        onPressed(context);
+        onPressed();
       },
       style: AppStyles.primaryButton,
       child: Padding(
