@@ -16,8 +16,7 @@ class TrainingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isLandscape = constraints.maxWidth > 720;
-        return isLandscape
+        return SizeConfig.isLandscape
             ? _buildLandscapeLayout(context)
             : _buildPortraitLayout(context);
       },
@@ -81,7 +80,7 @@ class TrainingPage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(
-          height: 185,
+          height: 150,
           child: LevelsList(viewPortFraction: 0.9),
         ),
         Padding(
@@ -111,7 +110,7 @@ class TrainingPage extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               SizedBox(
-                height: SizeConfig.screenHeight - (25 + 45 + 185 + 220),
+                height: SizeConfig.screenHeight - (25 + 45 + 150 + 220),
                 child: const DaysList(),
               ),
             ],
