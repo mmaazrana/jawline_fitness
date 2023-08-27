@@ -96,7 +96,7 @@ class _ReportsPageState extends State<ReportsPage> {
         ),
         const SizedBox(width: 35),
         SizedBox(
-          width: SizeConfig.screenWidth * 0.5 - 80,
+          width: SizeConfig.screenWidth * 0.5 - 88,
           height: SizeConfig.screenHeight - 95,
           child: Column(
             children: [
@@ -107,7 +107,7 @@ class _ReportsPageState extends State<ReportsPage> {
               ),
               const SizedBox(height: 10),
               SizedBox(
-                height: SizeConfig.screenHeight - 151,
+                height: SizeConfig.screenHeight - 200,
                 child: const DaysList(),
               ),
             ],

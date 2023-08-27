@@ -18,13 +18,13 @@ class TrainingPage extends StatelessWidget {
       builder: (context, constraints) {
         final isLandscape = constraints.maxWidth > 720;
         return isLandscape
-            ? _buildTwoColumnLayout(context)
-            : _buildSingleColumnLayout(context);
+            ? _buildLandscapeLayout(context)
+            : _buildPortraitLayout(context);
       },
     );
   }
 
-  Widget _buildTwoColumnLayout(BuildContext context) {
+  Widget _buildLandscapeLayout(BuildContext context) {
     return Row(
       children: [
         const Expanded(
@@ -77,11 +77,11 @@ class TrainingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildSingleColumnLayout(BuildContext context) {
+  Widget _buildPortraitLayout(BuildContext context) {
     return Column(
       children: [
         const SizedBox(
-          height: 150,
+          height: 185,
           child: LevelsList(viewPortFraction: 0.9),
         ),
         Padding(
@@ -111,7 +111,7 @@ class TrainingPage extends StatelessWidget {
               ),
               const SizedBox(height: 25),
               SizedBox(
-                height: SizeConfig.screenHeight - (25 + 45 + 150 + 220),
+                height: SizeConfig.screenHeight - (25 + 45 + 185 + 220),
                 child: const DaysList(),
               ),
             ],
