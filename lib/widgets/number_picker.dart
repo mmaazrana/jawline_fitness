@@ -80,10 +80,10 @@ class NumberPicker extends StatefulWidget {
         super(key: key);
 
   @override
-  _NumberPickerState createState() => _NumberPickerState();
+  NumberPickerState createState() => NumberPickerState();
 }
 
-class _NumberPickerState extends State<NumberPicker> {
+class NumberPickerState extends State<NumberPicker> {
   late ScrollController _scrollController;
 
   @override
@@ -195,16 +195,16 @@ class _NumberPickerState extends State<NumberPicker> {
 
   Widget _itemBuilder(BuildContext context, int index) {
     final themeData = Theme.of(context);
-    final defaultStyle = widget.textStyle ?? themeData.textTheme.bodyMedium;
-    final selectedStyle = widget.selectedTextStyle ??
-        themeData.textTheme.headlineSmall
-            ?.copyWith(color: themeData.colorScheme.secondary);
+    // final defaultStyle = widget.textStyle ?? themeData.textTheme.bodyMedium;
+    // final selectedStyle = widget.selectedTextStyle ??
+    themeData.textTheme.headlineSmall
+        ?.copyWith(color: themeData.colorScheme.secondary);
 
     final value = _intValueFromIndex(index % itemCount);
     final isExtra = !widget.infiniteLoop &&
         (index < additionalItemsOnEachSide ||
             index >= listItemsCount - additionalItemsOnEachSide);
-    final itemStyle = value == widget.value ? selectedStyle : defaultStyle;
+    // final itemStyle = value == widget.value ? selectedStyle : defaultStyle;
 
     final child = isExtra
         ? const SizedBox.shrink()

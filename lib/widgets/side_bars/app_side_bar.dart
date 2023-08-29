@@ -6,7 +6,7 @@ class AppSideBar extends StatelessWidget {
   final int selectedItemIndex;
   final void Function(int index) onTap;
 
-  AppSideBar({
+  const AppSideBar({
     super.key,
     required this.selectedItemIndex,
     required this.onTap,

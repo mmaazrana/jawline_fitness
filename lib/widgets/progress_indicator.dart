@@ -7,11 +7,11 @@ class CustomCircularProgressIndicator extends StatefulWidget {
   const CustomCircularProgressIndicator({super.key});
 
   @override
-  _CustomCircularProgressIndicatorState createState() =>
-      _CustomCircularProgressIndicatorState();
+  CustomCircularProgressIndicatorState createState() =>
+      CustomCircularProgressIndicatorState();
 }
 
-class _CustomCircularProgressIndicatorState
+class CustomCircularProgressIndicatorState
     extends State<CustomCircularProgressIndicator> {
   double _progress = 0.0;
   Timer? _timer;
@@ -29,7 +29,7 @@ class _CustomCircularProgressIndicatorState
   }
 
   void _startTimer() {
-    const duration = Duration(seconds: 10);
+    // const duration = Duration(seconds: 10);
     const interval = Duration(milliseconds: 50);
 
     int step = 0;

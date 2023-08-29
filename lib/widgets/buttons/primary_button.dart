@@ -19,7 +19,7 @@ class PrimaryButton extends StatelessWidget {
       },
       style: AppStyles.primaryButton,
       child: Padding(
-        padding: fullWidth ? EdgeInsets.zero : EdgeInsets.fromLTRB(10, 0, 5, 0),
+        padding: fullWidth ? EdgeInsets.zero : const EdgeInsets.fromLTRB(10, 0, 5, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

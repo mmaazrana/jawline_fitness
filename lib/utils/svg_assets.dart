@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:jawline_fitness/utils/colors.dart';
-import 'size_config.dart';
 
 class SvgAssets {
   static Widget createLineSvg(
