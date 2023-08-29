@@ -35,7 +35,7 @@ class _RestScreenState extends State<RestScreen> {
         // Navigate to RestScreen when exercise is completed
         Navigator.pushReplacementNamed(
           context,
-          Routes.completeScreen,
+          AppRoutes.completeScreen,
         );
       }
     });
@@ -53,7 +53,7 @@ class _RestScreenState extends State<RestScreen> {
       timer.cancel();
       Navigator.pushReplacementNamed(
         context,
-        Routes.completeScreen,
+        AppRoutes.completeScreen,
       );
     });
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/theme.dart';
-import 'package:jawline_fitness/widgets/days_list.dart';
+import 'package:jawline_fitness/widgets/lists/days_list.dart';
 
 class ReportsPage extends StatefulWidget {
   const ReportsPage({super.key});
@@ -43,7 +43,7 @@ class _ReportsPageState extends State<ReportsPage> {
         const SizedBox(height: 20),
         Container(
           padding: const EdgeInsets.only(bottom: 10),
-          decoration: AppStyles.calendarBorder,
+          decoration: AppStyles.darkGreyOutlineAlternate,
           child: Theme(
             data: AppThemes.calendarTheme,
             child: CalendarDatePicker(
@@ -80,7 +80,7 @@ class _ReportsPageState extends State<ReportsPage> {
           height: SizeConfig.screenHeight - 105,
           child: Container(
             padding: const EdgeInsets.only(bottom: 10),
-            decoration: AppStyles.calendarBorder,
+            decoration: AppStyles.darkGreyOutlineAlternate,
             height: SizeConfig.screenHeight - 105,
             width: SizeConfig.screenWidth,
             child: Theme(

@@ -16,6 +16,12 @@ class AppStyles {
     color: AppColors.grey,
   );
 
+  static const TextStyle secondaryAlternateHeading = TextStyle(
+    fontWeight: FontWeight.w800,
+    fontSize: 24,
+    color: AppColors.grey,
+  );
+
   static const TextStyle tertiaryHeading = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w800,
@@ -172,7 +178,7 @@ class AppStyles {
     borderRadius: BorderRadius.circular(100),
   );
 
-  static BoxDecoration calendarBorder = BoxDecoration(
+  static BoxDecoration darkGreyOutlineAlternate = BoxDecoration(
       borderRadius: BorderRadius.circular(18),
       border: Border.all(
         color: AppColors.darkGrey,

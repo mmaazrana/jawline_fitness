@@ -39,7 +39,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
       }
       if (currentExerciseTime <= 0) {
         timer.cancel();
-        Navigator.pushReplacementNamed(context, Routes.restScreen);
+        Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
       }
     });
   }
@@ -53,7 +53,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   void skipExercise() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       timer.cancel();
-      Navigator.pushReplacementNamed(context, Routes.restScreen);
+      Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
     });
   }
 

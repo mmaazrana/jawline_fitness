@@ -11,7 +11,7 @@ import 'package:jawline_fitness/widgets/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'screens/exerciseComplete.dart';
+import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
 
 void main() async {
@@ -38,15 +38,16 @@ class MainApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         title: 'Jawline Fitness',
-        initialRoute: Routes.splashScreen,
+        initialRoute: AppRoutes.splashScreen,
         routes: {
-          Routes.home: (context) => const Home(),
-          Routes.onBoarding: (context) => const OnBoarding(),
-          Routes.splashScreen: (context) => const SplashScreen(),
-          Routes.exerciseScreen: (context) => const ExerciseScreen(),
-          Routes.restScreen: (context) => const RestScreen(),
-          Routes.completeScreen: (context) => const ExcerciseCompleteScreen(),
-          Routes.reminders: (context) => const CustomReminders(),
+          AppRoutes.home: (context) => const Home(),
+          AppRoutes.onBoarding: (context) => const OnBoarding(),
+          AppRoutes.splashScreen: (context) => const SplashScreen(),
+          AppRoutes.exerciseScreen: (context) => const ExerciseScreen(),
+          AppRoutes.restScreen: (context) => const RestScreen(),
+          AppRoutes.completeScreen: (context) =>
+              const ExcerciseCompleteScreen(),
+          AppRoutes.reminders: (context) => const CustomReminders(),
         },
       ),
     );

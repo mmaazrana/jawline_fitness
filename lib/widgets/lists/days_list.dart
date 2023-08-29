@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import 'cards/day_card.dart';
+import '../cards/day_card.dart';
 
 class DaysList extends StatefulWidget {
   const DaysList({super.key});
 
   @override
-  _DaysListState createState() => _DaysListState();
+  DaysListState createState() => DaysListState();
 }
 
-class _DaysListState extends State<DaysList> {
+class DaysListState extends State<DaysList> {
   String? selectedCard;
 
   void _selectCard(String cardText) {

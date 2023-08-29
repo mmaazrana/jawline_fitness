@@ -6,7 +6,8 @@ class DayCard extends StatelessWidget {
   final bool isSelected;
   final VoidCallback onPressed;
 
-  const DayCard({super.key, 
+  const DayCard({
+    super.key,
     required this.text,
     required this.isSelected,
     required this.onPressed,
@@ -49,7 +50,6 @@ class DayCard extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   // Handle start button action here
-                  print('Start button pressed for: $text');
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(5),

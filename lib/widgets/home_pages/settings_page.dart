@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
-
-import '../../utils/colors.dart';
+import 'package:jawline_fitness/utils/styles.dart';
+import 'package:jawline_fitness/widgets/cards/settings_card.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -22,11 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             const Text(
               "Settings",
-              style: TextStyle(
-                fontSize: 30,
-                color: AppColors.grey,
-                fontWeight: FontWeight.w800,
-              ),
+              style: AppStyles.secondaryHeading,
               textAlign: TextAlign.center,
             ),
             const SizedBox(
@@ -35,28 +32,19 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               width: SizeConfig.screenWidth - (34 * 2),
               padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: AppColors.darkGrey,
-                    width: 3,
-                  )),
-              child: const Column(
+              decoration: AppStyles.darkGreyOutlineAlternate,
+              child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "General Settings",
-                    style: TextStyle(
-                      fontSize: 24,
-                      color: AppColors.grey,
-                      fontWeight: FontWeight.w800,
-                    ),
+                    style: AppStyles.secondaryAlternateHeading,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  SettingButton(
+                  const SizedBox(height: 15),
+                  SettingCard(
                     text: "Custom Reminders",
+                    onPressed: () =>
+                        Navigator.pushNamed(context, AppRoutes.reminders),
                   ),
                 ],
               ),
@@ -67,91 +55,30 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               width: SizeConfig.screenWidth - (34 * 2),
               padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(
-                    color: AppColors.darkGrey,
-                    width: 3,
-                  )),
-              child: const Column(children: [
-                Text(
+              decoration: AppStyles.darkGreyOutlineAlternate,
+              child: Column(children: [
+                const Text(
                   "Excercise Settings",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColors.grey,
-                    fontWeight: FontWeight.w800,
-                  ),
+                  style: AppStyles.secondaryAlternateHeading,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                SettingButton(
+                const SizedBox(height: 15),
+                SettingCard(
                   text: "Rest Duration",
+                  onPressed: () {},
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                SettingButton(
+                const SizedBox(height: 15),
+                SettingCard(
                   text: "Voice Guide",
+                  onPressed: () {},
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                SettingButton(
+                const SizedBox(height: 15),
+                SettingCard(
                   text: "Duration",
+                  onPressed: () {},
                 ),
               ]),
             )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SettingButton extends StatelessWidget {
-  final String text;
-
-  const SettingButton({
-    super.key,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: null,
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: AppColors.darkGrey,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                color: AppColors.grey,
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(0),
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: AppColors.yellow,
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: const Icon(
-                Icons.chevron_right,
-                size: 16,
-                color: AppColors.lightBlack,
-              ),
-            ),
           ],
         ),
       ),

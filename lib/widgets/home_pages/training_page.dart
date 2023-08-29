@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jawline_fitness/widgets/levels_list.dart';
+import 'package:jawline_fitness/widgets/lists/levels_list.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/routes.dart';
 import '../../utils/size_config.dart';
 import '../../utils/styles.dart';
-import '../days_list.dart';
+import '../lists/days_list.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({
@@ -45,7 +45,7 @@ class TrainingPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Routes.exerciseScreen);
+                    Navigator.pushNamed(context, AppRoutes.exerciseScreen);
                   },
                   style: AppStyles.primaryButton,
                   child: const Row(
@@ -90,7 +90,7 @@ class TrainingPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(
-                      context, Routes.exerciseScreen);
+                      context, AppRoutes.exerciseScreen);
                 },
                 style: AppStyles.primaryButton,
                 child: const Row(

@@ -69,7 +69,7 @@ class OnBoardingState extends State<OnBoarding> {
   // }
 
   void _redirectToHome() =>
-      Navigator.pushReplacementNamed(context, Routes.home);
+      Navigator.pushReplacementNamed(context, AppRoutes.home);
   void _previousStep() => setState(() => {if (currentStep > 0) currentStep--});
   void setGender(gender) => setState(() => this.gender = gender);
   void setAge(value) => setState(() => _currentValue = value);

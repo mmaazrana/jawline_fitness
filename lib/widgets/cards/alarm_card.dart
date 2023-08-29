@@ -1,6 +1,7 @@
 import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/utils/theme.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AlarmCard extends StatefulWidget {
@@ -50,12 +51,10 @@ class _AlarmCardState extends State<AlarmCard> {
 
   Future<void> pickTime() async {
     var status = await Permission.scheduleExactAlarm.status;
-    print(status);
-    print(status.isDenied);
     if (status.isDenied) {
       var isPermanentlyDenied =
           await Permission.scheduleExactAlarm.request().isPermanentlyDenied;
-      print(isPermanentlyDenied);
+
       if (isPermanentlyDenied) {
         openAppSettings();
       } else {
@@ -64,29 +63,7 @@ class _AlarmCardState extends State<AlarmCard> {
           context: context,
           builder: (context, child) {
             return Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme: const ColorScheme.dark(
-                  primary: AppColors.yellow, // header background color
-                  onPrimary: AppColors.darkGrey, // header text color
-                  onSurface: AppColors.grey, // body text color
-                  onTertiaryContainer: AppColors.grey,
-                  tertiaryContainer: AppColors.lightBlack,
-                  surface: AppColors.darkGrey,
-                  surfaceTint: AppColors.darkGrey,
-                  outline: AppColors.lightBlack,
-                ),
-                useMaterial3: true,
-                textTheme: const TextTheme(
-                  headlineSmall: TextStyle(
-                    color: AppColors.grey,
-                  ),
-                ),
-                textButtonTheme: TextButtonThemeData(
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColors.yellow, // button text color
-                  ),
-                ),
-              ),
+              data: AppThemes.timePickerTheme,
               child: child!,
             );
           },
