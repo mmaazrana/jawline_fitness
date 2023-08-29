@@ -7,7 +7,7 @@ import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
 import '../utils/size_config.dart';
 import '../widgets/counter.dart';
-import '../widgets/exercise_app_bar.dart';
+import '../widgets/app_bars/exercise_app_bar.dart';
 import '../widgets/exercise_name.dart';
 
 class ExerciseScreen extends StatefulWidget {

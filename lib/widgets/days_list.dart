@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'day_card.dart';
+import 'cards/day_card.dart';
 
 class DaysList extends StatefulWidget {
   const DaysList({super.key});

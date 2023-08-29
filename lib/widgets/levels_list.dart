@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 
-import 'progress_card.dart';
+import 'cards/progress_card.dart';
 
 class LevelsList extends StatefulWidget {
   final double viewPortFraction;

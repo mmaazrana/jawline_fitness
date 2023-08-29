@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/widgets/levels_list.dart';
 
-import '../utils/colors.dart';
-import '../utils/routes.dart';
-import '../utils/size_config.dart';
-import '../utils/styles.dart';
-import 'days_list.dart';
+import '../../utils/colors.dart';
+import '../../utils/routes.dart';
+import '../../utils/size_config.dart';
+import '../../utils/styles.dart';
+import '../days_list.dart';
 
 class TrainingPage extends StatelessWidget {
   const TrainingPage({

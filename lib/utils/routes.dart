@@ -5,4 +5,5 @@ class Routes {
   static const String exerciseScreen = '/exercise';
   static const String restScreen = '/rest';
   static const String completeScreen = '/complete';
+  static const String reminders = '/reminders';
 }

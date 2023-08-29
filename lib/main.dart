@@ -2,6 +2,7 @@ import 'package:alarm/alarm.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/screens/home.dart';
+import 'package:jawline_fitness/screens/reminders.dart';
 import 'package:jawline_fitness/screens/rest.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/data_provider.dart';
@@ -45,6 +46,7 @@ class MainApp extends StatelessWidget {
           Routes.exerciseScreen: (context) => const ExerciseScreen(),
           Routes.restScreen: (context) => const RestScreen(),
           Routes.completeScreen: (context) => const ExcerciseCompleteScreen(),
+          Routes.reminders: (context) => const CustomReminders(),
         },
       ),
     );

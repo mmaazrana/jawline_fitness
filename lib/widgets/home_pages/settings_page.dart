@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 
-import '../utils/colors.dart';
+import '../../utils/colors.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});

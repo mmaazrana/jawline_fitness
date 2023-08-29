@@ -3,8 +3,8 @@ import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
-import '../widgets/alarm_card.dart';
-import '../widgets/exercise_app_bar.dart';
+import '../widgets/cards/alarm_card.dart';
+import '../widgets/app_bars/exercise_app_bar.dart';
 
 class ExcerciseCompleteScreen extends StatefulWidget {
   const ExcerciseCompleteScreen({super.key});

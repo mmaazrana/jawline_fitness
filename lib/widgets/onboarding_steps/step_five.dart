@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../alarm_card.dart';
+import '../cards/alarm_card.dart';
 
 class StepFive extends StatelessWidget {
   const StepFive({

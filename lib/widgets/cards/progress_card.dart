@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 
-import 'wave_clipper.dart';
+import '../wave_clipper.dart';
 
 class ProgressCard extends StatelessWidget {
   final String heading;
   final String description;
   final double progress;
 
-  const ProgressCard({super.key, 
+  const ProgressCard({
+    super.key,
     required this.heading,
     required this.description,
     required this.progress,
