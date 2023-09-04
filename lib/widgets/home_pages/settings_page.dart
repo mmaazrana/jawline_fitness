@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 const SizedBox(height: 15),
                 SettingCard(
-                  text: "Duration",
+                  text: "Vibration",
                   onPressed: () {},
                 ),
               ]),

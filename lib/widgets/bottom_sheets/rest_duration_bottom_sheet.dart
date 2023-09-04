@@ -4,6 +4,7 @@ import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/widgets/number_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RestDurationBottomSheet extends StatefulWidget {
   const RestDurationBottomSheet({super.key});
@@ -16,6 +17,21 @@ class RestDurationBottomSheet extends StatefulWidget {
 class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
   int currentRestDuration = 20;
 
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int restDurationData = prefs.getInt('restDuration') ?? 20;
+    setState(() {
+      currentRestDuration = restDurationData;
+      // isOnboarded = false; //hard coded for testing
+    });
+  }
+
   void setRestDuration(int restDuration) {
     setState(() {
       currentRestDuration = restDuration;
@@ -27,7 +43,7 @@ class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
     return Container(
       width: SizeConfig.screenWidth,
       height: SizeConfig.screenHeight,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.lightBlack, // Semi-dark background color
         border: Border(
           top: BorderSide(
@@ -40,8 +56,8 @@ class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 34),
-            Text(
+            const SizedBox(height: 34),
+            const Text(
               "Current Rest Duration",
               style: TextStyle(
                 color: AppColors.grey,
@@ -50,14 +66,14 @@ class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
               ),
             ),
             Text(
-              currentRestDuration.toString() + "s",
-              style: TextStyle(
+              "${currentRestDuration}s",
+              style: const TextStyle(
                 color: AppColors.yellow,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -88,19 +104,26 @@ class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
                     semanticsLabel: 'A red up arrow'),
               ],
             ),
-            SizedBox(height: 25),
+            const SizedBox(height: 25),
             ElevatedButton(
               style: AppStyles.primaryButton,
-              onPressed: () {
-                // Save button pressed
-                // Add your save logic here
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                prefs.setInt('restDuration', currentRestDuration);
+                // Show a SnackBar when the button is pressed
+                const snackBar = SnackBar(
+                  content: Text('Rest Duration Updated Successfully'),
+                  duration: Duration(seconds: 2),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.of(context).pop();
               },
-              child: Text(
+              child: const Text(
                 "Save",
                 style: AppStyles.primaryButtonText,
               ),
             ),
-            SizedBox(height: 34),
+            const SizedBox(height: 34),
           ],
         ),
       ),

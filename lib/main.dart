@@ -63,6 +63,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool isOnboarded = false;
+  int restDuration = 20;
 
   @override
   void initState() {
@@ -73,8 +74,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isOnBoardedData = prefs.getBool('isOnboarded') ?? false;
+    int restDurationData = prefs.getInt('restDuration') ?? 20;
     setState(() {
       isOnboarded = isOnBoardedData;
+      restDuration = restDurationData;
       // isOnboarded = false; //hard coded for testing
     });
   }
