@@ -4,6 +4,8 @@ import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/theme.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../switches/custom_switch.dart';
+
 class AlarmCard extends StatefulWidget {
   final AlarmSettings? alarmSettings;
 
@@ -170,39 +172,10 @@ class _AlarmCardState extends State<AlarmCard> {
                 ],
               ),
               const Spacer(),
-              Switch(
-                value: reminder,
-                // thumbColor: MaterialStateProperty.all(
-                //   AppColors.yellow,
-                // ),
-                // trackColor: MaterialStateProperty.all(
-                //   AppColors.darkGrey,
-                // ),
-                trackOutlineColor: MaterialStateProperty.all(
-                  reminder ? AppColors.yellow : AppColors.grey,
-                ),
-                thumbIcon: MaterialStateProperty.all(
-                  const Icon(
-                    Icons.circle,
-                    color: AppColors.darkGrey,
-                  ),
-                ),
-                inactiveThumbColor: AppColors.grey,
-                inactiveTrackColor: AppColors.darkGrey,
-                activeTrackColor: AppColors.darkGrey,
-                focusColor: AppColors.yellow,
-                hoverColor: AppColors.yellow,
-                activeColor: AppColors.yellow,
-                overlayColor: MaterialStateProperty.all(
-                  AppColors.yellow,
-                ),
-                onChanged: (bool value) {
-                  if (value) {
-                    pickTime();
-                  } else {
-                    deleteAlarm();
-                  }
-                },
+              CustomSwitch(
+                reminder: reminder,
+                onEnable: pickTime,
+                onDisable: deleteAlarm,
               )
             ],
           ),

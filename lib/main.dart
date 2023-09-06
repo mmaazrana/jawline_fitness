@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/screens/home.dart';
 import 'package:jawline_fitness/screens/reminders.dart';
 import 'package:jawline_fitness/screens/rest.dart';
+import 'package:jawline_fitness/screens/vibration_control.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/data_provider.dart';
 import 'package:jawline_fitness/utils/routes.dart';
@@ -48,6 +49,7 @@ class MainApp extends StatelessWidget {
           AppRoutes.completeScreen: (context) =>
               const ExcerciseCompleteScreen(),
           AppRoutes.reminders: (context) => const CustomReminders(),
+          AppRoutes.vibrationControl: (context) => const VibrationControl(),
         },
       ),
     );
@@ -62,8 +64,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  bool isOnboarded = false;
-  int restDuration = 20;
+  late bool isOnboarded;
+  late bool isVibrationEnabled;
+  late int restDuration;
 
   @override
   void initState() {
@@ -74,10 +77,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isOnBoardedData = prefs.getBool('isOnboarded') ?? false;
+    bool isVibrationEnabledData = prefs.getBool('isVibrationEnabled') ?? true;
     int restDurationData = prefs.getInt('restDuration') ?? 20;
     setState(() {
       isOnboarded = isOnBoardedData;
       restDuration = restDurationData;
+      isVibrationEnabled = isVibrationEnabledData;
       // isOnboarded = false; //hard coded for testing
     });
   }

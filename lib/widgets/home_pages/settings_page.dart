@@ -83,7 +83,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingCard(
                   text: "Vibration",
-                  onPressed: () {},
+                  onPressed: () =>
+                      Navigator.pushNamed(context, AppRoutes.vibrationControl),
                 ),
               ]),
             )
