@@ -6,6 +6,7 @@ import 'package:jawline_fitness/widgets/counter.dart';
 import '../utils/size_config.dart';
 import '../utils/styles.dart';
 import '../utils/svg_assets.dart';
+import '../widgets/bottom_sheets/about_exercise_bottom_sheet.dart';
 import '../widgets/buttons/secondary_button.dart';
 import '../widgets/buttons/tertiary_button.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
@@ -22,6 +23,8 @@ class _RestScreenState extends State<RestScreen> {
   int day = 1;
   int restTime = 300; // Current exercise time in seconds
   String nextExerciseName = "Side Raises";
+  String exerciseDescription =
+      "Lateral raises, also known as lateral deltoid raises or lateral shoulder raises, are a common strength-training exercise that primarily targets the lateral deltoid muscles, which are the muscles on the sides of your shoulders. Here's how to perform lateral raises:Stand upright with a dumbbell in each hand, hanging at arm's length by your sides. Ensure your feet are about hip-width apart for stability.Maintain a slight bend in your elbows throughout the exercise, but keep them mostly straight.Engage your core for stability and maintain proper posture with your chest up and shoulders back.To begin the exercise, simultaneously raise both arms out to the sides until they are approximately parallel to the ground. Keep your palms facing downward throughout the movement.Hold the raised position for a brief moment, focusing on the contraction in your lateral deltoid muscles.Slowly lower the dumbbells back to the starting position, maintaining control and preventing any swinging or jerking motions.Repeat the exercise for the desired number of repetitions.Lateral raises are an effective way to isolate and strengthen the lateral deltoids, which can help improve shoulder definition and overall shoulder strength. It's essential to use proper form and select an appropriate weight to avoid straining the shoulder joints. If you're new to the exercise, start with lighter weights and gradually increase as you become more comfortable with the movement.";
   int nextExerciseTime = 300;
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
@@ -64,7 +67,17 @@ class _RestScreenState extends State<RestScreen> {
     startTimer();
   }
 
-  void aboutExercise() {}
+  void aboutExercise() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return AboutExerciseBottomSheet(
+          exerciseTitle: nextExerciseName,
+          exerciseDescription: exerciseDescription,
+        );
+      },
+    );
+  }
 
   @override
   void didChangeDependencies() {
