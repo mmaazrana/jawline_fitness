@@ -19,7 +19,7 @@ class DayPreview extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.lightBlack,
       appBar: ExerciseAppBar(day: day),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(
