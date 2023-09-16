@@ -12,6 +12,7 @@ import 'package:jawline_fitness/widgets/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'screens/day_preview.dart';
 import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
 

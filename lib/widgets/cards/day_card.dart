@@ -4,13 +4,15 @@ import 'package:jawline_fitness/utils/colors.dart';
 class DayCard extends StatelessWidget {
   final String text;
   final bool isSelected;
-  final VoidCallback onPressed;
+  final Function() onPressed;
+  final Function() onStart;
 
   const DayCard({
     super.key,
     required this.text,
     required this.isSelected,
     required this.onPressed,
+    required this.onStart,
   });
 
   @override
@@ -48,9 +50,7 @@ class DayCard extends StatelessWidget {
             if (isSelected) const SizedBox(width: 16.0),
             if (isSelected)
               ElevatedButton(
-                onPressed: () {
-                  // Handle start button action here
-                },
+                onPressed: onStart,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(5),
                   backgroundColor: AppColors.yellow,

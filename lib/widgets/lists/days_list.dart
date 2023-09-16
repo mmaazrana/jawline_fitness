@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jawline_fitness/screens/day_preview.dart';
+import 'package:jawline_fitness/utils/constants.dart';
+import 'package:jawline_fitness/utils/routes.dart';
 
 import '../cards/day_card.dart';
 
@@ -21,14 +24,20 @@ class DaysListState extends State<DaysList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 30,
+      itemCount: Constants.level.length,
       itemBuilder: (context, index) {
         final cardText = "Day ${index + 1}";
         final isSelected = selectedCard == cardText;
-
         return DayCard(
           text: cardText,
           isSelected: isSelected,
+          onStart: () => {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DayPreview(day: index + 1),
+              ),
+            )
+          },
           onPressed: () {
             _selectCard(cardText);
           },
