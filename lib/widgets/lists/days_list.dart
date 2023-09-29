@@ -24,7 +24,7 @@ class DaysListState extends State<DaysList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: Constants.level.length,
+      itemCount: Constants.levelOne.length,
       itemBuilder: (context, index) {
         final cardText = "Day ${index + 1}";
         final isSelected = selectedCard == cardText;
@@ -32,11 +32,9 @@ class DaysListState extends State<DaysList> {
           text: cardText,
           isSelected: isSelected,
           onStart: () => {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DayPreview(day: index + 1),
-              ),
-            )
+            Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+              return DayPreview(day: index + 1);
+            })),
           },
           onPressed: () {
             _selectCard(cardText);

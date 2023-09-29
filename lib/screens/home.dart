@@ -25,10 +25,10 @@ class _HomeState extends State<Home> {
     SizeConfig().init(context);
   }
 
-  final List<Widget> _pages = const [
+  final List<Widget> _pages = [
     TrainingPage(),
-    ReportsPage(),
-    SettingsPage(),
+    const ReportsPage(),
+    const SettingsPage(),
   ];
 
   void _onTabTapped(int index) {

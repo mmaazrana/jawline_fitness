@@ -12,6 +12,7 @@ import 'package:jawline_fitness/widgets/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'models/exercise.dart';
 import 'screens/day_preview.dart';
 import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
@@ -45,12 +46,14 @@ class MainApp extends StatelessWidget {
           AppRoutes.home: (context) => const Home(),
           AppRoutes.onBoarding: (context) => const OnBoarding(),
           AppRoutes.splashScreen: (context) => const SplashScreen(),
-          AppRoutes.exerciseScreen: (context) => const ExerciseScreen(),
+          // AppRoutes.exerciseScreen: (context) => ExerciseScreen(),
           AppRoutes.restScreen: (context) => const RestScreen(),
           AppRoutes.completeScreen: (context) =>
               const ExcerciseCompleteScreen(),
           AppRoutes.reminders: (context) => const CustomReminders(),
           AppRoutes.vibrationControl: (context) => const VibrationControl(),
+          // AppRoutes.dayPreview: (context, {int? index}) =>
+          //     DayPreview(day: index! + 1),
         },
       ),
     );

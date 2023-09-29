@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jawline_fitness/screens/exercise.dart';
 import 'package:jawline_fitness/widgets/lists/levels_list.dart';
 
+import '../../models/exercise.dart';
 import '../../utils/colors.dart';
+import '../../utils/constants.dart';
 import '../../utils/routes.dart';
 import '../../utils/size_config.dart';
 import '../../utils/styles.dart';
 import '../lists/days_list.dart';
 
 class TrainingPage extends StatelessWidget {
-  const TrainingPage({
+  final int day = 1;
+  final Exercise exercise = Constants.exercises[0];
+
+  TrainingPage({
     super.key,
   });
 
@@ -21,6 +27,15 @@ class TrainingPage extends StatelessWidget {
             : _buildPortraitLayout(context);
       },
     );
+  }
+
+  void continueTraining(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
+      return ExerciseScreen(
+        day: day,
+        exercise: exercise,
+      );
+    }));
   }
 
   Widget _buildLandscapeLayout(BuildContext context) {
@@ -45,7 +60,7 @@ class TrainingPage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.exerciseScreen);
+                    continueTraining(context);
                   },
                   style: AppStyles.primaryButton,
                   child: const Row(
@@ -89,8 +104,7 @@ class TrainingPage extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.exerciseScreen);
+                  continueTraining(context);
                 },
                 style: AppStyles.primaryButton,
                 child: const Row(

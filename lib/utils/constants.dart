@@ -1,7 +1,7 @@
 import 'package:jawline_fitness/models/exercise.dart';
 
 class Constants {
-  static final level = [
+  static final levelOne = [
     [
       exercises[0],
       exercises[1],
@@ -11,36 +11,36 @@ class Constants {
       exercises[5]
     ],
     [
-      exercises[1],
-      exercises[3],
-      exercises[5],
       exercises[6],
-      exercises[7],
-      exercises[8]
-    ],
-    [
-      exercises[0],
-      exercises[0],
-      exercises[0],
-      exercises[0],
-      exercises[0],
+      exercises[4],
+      exercises[3],
+      exercises[2],
+      exercises[1],
       exercises[0]
     ],
     [
-      exercises[0],
-      exercises[1],
-      exercises[2],
-      exercises[3],
+      exercises[7],
       exercises[4],
+      exercises[8],
+      exercises[0],
+      exercises[2],
       exercises[5]
     ],
     [
-      exercises[0],
-      exercises[1],
       exercises[2],
+      exercises[1],
+      exercises[6],
       exercises[3],
-      exercises[4],
-      exercises[5]
+      exercises[7],
+      exercises[4]
+    ],
+    [
+      exercises[8],
+      exercises[3],
+      exercises[7],
+      exercises[1],
+      exercises[0],
+      exercises[6]
     ],
     [
       exercises[0],

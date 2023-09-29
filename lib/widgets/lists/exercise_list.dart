@@ -16,12 +16,10 @@ class ExercisesListState extends State<ExercisesList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: Constants.level[widget.day].length,
+      itemCount: Constants.levelOne[widget.day - 1].length,
       itemBuilder: (context, index) {
         return ExerciseCard(
-          title: Constants.level[widget.day][index].title,
-          duration: Constants.level[widget.day][index].duration,
-          onPressed: () {},
+          exercise: Constants.levelOne[widget.day - 1][index],
         );
       },
     );

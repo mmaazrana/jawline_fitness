@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 
+import '../../models/exercise.dart';
+import '../../utils/helpers.dart';
+
 class ExerciseCard extends StatelessWidget {
-  final String title;
-  final int duration;
-  final Function() onPressed;
+  final Exercise exercise;
 
   const ExerciseCard({
     super.key,
-    required this.title,
-    required this.duration,
-    required this.onPressed,
+    required this.exercise,
+    // required this.title,
+    // required this.duration,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPressed,
+      onTap: () {
+        Helpers.aboutExercise(context: context, exercise: exercise);
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         margin: const EdgeInsets.symmetric(vertical: 8.0),
@@ -54,7 +57,7 @@ class ExerciseCard extends StatelessWidget {
                 SizedBox(
                   width: SizeConfig.screenWidth - 34 - 34 - 88,
                   child: Text(
-                    title,
+                    exercise.title,
                     style: const TextStyle(
                       overflow: TextOverflow.ellipsis,
                       color: AppColors.grey,
@@ -64,7 +67,7 @@ class ExerciseCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Duration: $duration s",
+                  "Duration: ${exercise.duration} s",
                   style: const TextStyle(
                     color: AppColors.grey,
                     overflow: TextOverflow.ellipsis,

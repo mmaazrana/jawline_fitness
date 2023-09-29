@@ -1,30 +1,32 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/utils/helpers.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
+import '../models/exercise.dart';
 import '../utils/size_config.dart';
-import '../widgets/bottom_sheets/about_exercise_bottom_sheet.dart';
 import '../widgets/counter.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
 import '../widgets/exercise_name.dart';
 
 class ExerciseScreen extends StatefulWidget {
-  const ExerciseScreen({super.key});
-
+  final int day;
+  final Exercise exercise;
+  const ExerciseScreen({super.key, required this.exercise, required this.day});
   @override
   ExerciseScreenState createState() => ExerciseScreenState();
 }
 
 class ExerciseScreenState extends State<ExerciseScreen> {
-  int totalExerciseTime = 300;
-  int currentExerciseTime = 300;
-  int day = 1;
-  String exerciseName = "Lateral Raises";
-  String exerciseDescription =
-      "Lateral raises, also known as lateral deltoid raises or lateral shoulder raises, are a common strength-training exercise that primarily targets the lateral deltoid muscles, which are the muscles on the sides of your shoulders. Here's how to perform lateral raises:Stand upright with a dumbbell in each hand, hanging at arm's length by your sides. Ensure your feet are about hip-width apart for stability.Maintain a slight bend in your elbows throughout the exercise, but keep them mostly straight.Engage your core for stability and maintain proper posture with your chest up and shoulders back.To begin the exercise, simultaneously raise both arms out to the sides until they are approximately parallel to the ground. Keep your palms facing downward throughout the movement.Hold the raised position for a brief moment, focusing on the contraction in your lateral deltoid muscles.Slowly lower the dumbbells back to the starting position, maintaining control and preventing any swinging or jerking motions.Repeat the exercise for the desired number of repetitions.Lateral raises are an effective way to isolate and strengthen the lateral deltoids, which can help improve shoulder definition and overall shoulder strength. It's essential to use proper form and select an appropriate weight to avoid straining the shoulder joints. If you're new to the exercise, start with lighter weights and gradually increase as you become more comfortable with the movement.";
+  late int totalExerciseTime = widget.exercise.duration;
+  late int currentExerciseTime = 300;
+  late int day = widget.day;
+  late String exerciseName = widget.exercise.title;
+  late String exerciseDescription = widget.exercise.description;
+  late List<String> exerciseSteps = widget.exercise.steps;
   bool isPaused = false;
 
   @override
@@ -60,18 +62,6 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
 
-  void aboutExercise() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return AboutExerciseBottomSheet(
-          exerciseTitle: exerciseName,
-          exerciseDescription: exerciseDescription,
-        );
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
@@ -82,7 +72,6 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   Widget build(BuildContext context) {
     double progress =
         (totalExerciseTime - currentExerciseTime) / totalExerciseTime;
-
     return Scaffold(
         backgroundColor: AppColors.lightBlack,
         appBar: ExerciseAppBar(day: day),
@@ -113,7 +102,8 @@ class ExerciseScreenState extends State<ExerciseScreen> {
               children: [
                 ExerciseName(
                   exerciseName: exerciseName,
-                  onHelpPressed: aboutExercise,
+                  onHelpPressed: () => Helpers.aboutExercise(
+                      context: context, exercise: widget.exercise),
                 ),
                 const SizedBox(height: 35),
                 Counter(currentExerciseTime: currentExerciseTime),
@@ -156,7 +146,8 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                 children: [
                   ExerciseName(
                     exerciseName: exerciseName,
-                    onHelpPressed: aboutExercise,
+                    onHelpPressed: () => Helpers.aboutExercise(
+                        context: context, exercise: widget.exercise),
                   ),
                   const SizedBox(height: 25),
                   Counter(currentExerciseTime: currentExerciseTime),
