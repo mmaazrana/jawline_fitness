@@ -6,28 +6,49 @@ import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/exercise.dart';
+import '../utils/constants.dart';
 import '../utils/size_config.dart';
 import '../widgets/counter.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
 import '../widgets/exercise_name.dart';
 
 class ExerciseScreen extends StatefulWidget {
-  final int day;
-  final Exercise exercise;
-  const ExerciseScreen({super.key, required this.exercise, required this.day});
+  // final int day;
+  // final Exercise exercise;
+  const ExerciseScreen({
+    super.key,
+  });
   @override
   ExerciseScreenState createState() => ExerciseScreenState();
 }
 
 class ExerciseScreenState extends State<ExerciseScreen> {
-  late int totalExerciseTime = widget.exercise.duration;
-  late int currentExerciseTime = 300;
-  late int day = widget.day;
-  late String exerciseName = widget.exercise.title;
-  late String exerciseDescription = widget.exercise.description;
-  late List<String> exerciseSteps = widget.exercise.steps;
+  late int currentExercise;
+  late Exercise exercise;
+  late int totalExerciseTime;
+  late int currentExerciseTime;
+  late int day;
+  late String exerciseName;
+  late String exerciseDescription;
+  late List<String> exerciseSteps;
   bool isPaused = false;
+  bool isLoading = true;
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    day = prefs.getInt("currentDay") ?? 0;
+    currentExercise = prefs.getInt("currentExercise") ?? 0;
+    exercise = Constants.days[day].exercises[currentExercise];
+    totalExerciseTime = exercise.duration;
+    currentExerciseTime = exercise.duration;
+    exerciseName = exercise.title;
+    exerciseDescription = exercise.description;
+    exerciseSteps = exercise.steps;
+    isLoading = false;
+    startTimer();
+  }
 
   @override
   void didChangeDependencies() {
@@ -35,8 +56,8 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     SizeConfig().init(context);
   }
 
-  void startTimer() {
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+  void startTimer() async {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) async {
       if (!isPaused && currentExerciseTime > 0) {
         setState(() {
           currentExerciseTime--;
@@ -44,7 +65,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
       }
       if (currentExerciseTime <= 0) {
         timer.cancel();
-        Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
+        await updateData();
       }
     });
   }
@@ -55,29 +76,72 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
 
-  void skipExercise() {
-    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+  void skipExercise() async {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) async {
       timer.cancel();
-      Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
+      await updateData();
     });
+  }
+
+  Future<void> updateData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (currentExercise < 5) {
+      prefs.setInt('currentExercise', currentExercise + 1);
+      Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
+    } else {
+      Constants.days[day].completeDay();
+      prefs.setInt('currentDay', day + 1);
+      prefs.setInt('currentExercise', 0);
+      Navigator.pushReplacementNamed(
+        context,
+        AppRoutes.completeScreen,
+      );
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    startTimer();
+    loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    double progress =
-        (totalExerciseTime - currentExerciseTime) / totalExerciseTime;
-    return Scaffold(
+    if (isLoading) {
+      return const Scaffold(
         backgroundColor: AppColors.lightBlack,
-        appBar: ExerciseAppBar(day: day),
-        body: SizeConfig.isLandscape
-            ? _buildLandscapeLayout(progress)
-            : _buildPortraitLayout(progress));
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.yellow,
+                  ),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  "Loading Exercise",
+                  style: AppStyles.description,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      double progress =
+          (totalExerciseTime - currentExerciseTime) / totalExerciseTime;
+      return Scaffold(
+          backgroundColor: AppColors.lightBlack,
+          appBar: ExerciseAppBar(day: day + 1),
+          body: SizeConfig.isLandscape
+              ? _buildLandscapeLayout(progress)
+              : _buildPortraitLayout(progress));
+    }
   }
 
   Center _buildPortraitLayout(double progress) {
@@ -103,7 +167,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                 ExerciseName(
                   exerciseName: exerciseName,
                   onHelpPressed: () => Helpers.aboutExercise(
-                      context: context, exercise: widget.exercise),
+                      context: context, exercise: exercise),
                 ),
                 const SizedBox(height: 35),
                 Counter(currentExerciseTime: currentExerciseTime),
@@ -147,7 +211,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
                   ExerciseName(
                     exerciseName: exerciseName,
                     onHelpPressed: () => Helpers.aboutExercise(
-                        context: context, exercise: widget.exercise),
+                        context: context, exercise: exercise),
                   ),
                   const SizedBox(height: 25),
                   Counter(currentExerciseTime: currentExerciseTime),

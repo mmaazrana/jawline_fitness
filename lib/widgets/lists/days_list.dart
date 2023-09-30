@@ -29,6 +29,7 @@ class DaysListState extends State<DaysList> {
         final cardText = "Day ${widget.level[index].number}";
         final isSelected = selectedCard == cardText;
         return DayCard(
+          currentDay: widget.level[index].number - 1,
           text: cardText,
           isSelected: isSelected,
           onStart: () => {

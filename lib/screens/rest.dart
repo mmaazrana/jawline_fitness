@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/counter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/exercise.dart';
+import '../utils/constants.dart';
+import '../utils/helpers.dart';
 import '../utils/size_config.dart';
 import '../utils/styles.dart';
 import '../utils/svg_assets.dart';
@@ -20,12 +24,13 @@ class RestScreen extends StatefulWidget {
 }
 
 class _RestScreenState extends State<RestScreen> {
-  int day = 1;
-  int restTime = 300; // Current exercise time in seconds
-  String nextExerciseName = "Side Raises";
-  String exerciseDescription =
-      "Lateral raises, also known as lateral deltoid raises or lateral shoulder raises, are a common strength-training exercise that primarily targets the lateral deltoid muscles, which are the muscles on the sides of your shoulders. Here's how to perform lateral raises:Stand upright with a dumbbell in each hand, hanging at arm's length by your sides. Ensure your feet are about hip-width apart for stability.Maintain a slight bend in your elbows throughout the exercise, but keep them mostly straight.Engage your core for stability and maintain proper posture with your chest up and shoulders back.To begin the exercise, simultaneously raise both arms out to the sides until they are approximately parallel to the ground. Keep your palms facing downward throughout the movement.Hold the raised position for a brief moment, focusing on the contraction in your lateral deltoid muscles.Slowly lower the dumbbells back to the starting position, maintaining control and preventing any swinging or jerking motions.Repeat the exercise for the desired number of repetitions.Lateral raises are an effective way to isolate and strengthen the lateral deltoids, which can help improve shoulder definition and overall shoulder strength. It's essential to use proper form and select an appropriate weight to avoid straining the shoulder joints. If you're new to the exercise, start with lighter weights and gradually increase as you become more comfortable with the movement.";
-  int nextExerciseTime = 300;
+  late int day;
+  late int nextExercise;
+  late Exercise exercise;
+  late int restTime; // Current exercise time in seconds
+  late String nextExerciseName;
+  late int nextExerciseTime;
+  bool isLoading = true;
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (restTime > 0) {
@@ -35,11 +40,7 @@ class _RestScreenState extends State<RestScreen> {
       }
       if (restTime <= 0) {
         timer.cancel();
-        // Navigate to RestScreen when exercise is completed
-        Navigator.pushReplacementNamed(
-          context,
-          AppRoutes.completeScreen,
-        );
+        Navigator.pushReplacementNamed(context, AppRoutes.exerciseScreen);
       }
     });
   }
@@ -54,29 +55,26 @@ class _RestScreenState extends State<RestScreen> {
     // Cancel the timer and navigate to RestScreen
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       timer.cancel();
-      Navigator.pushReplacementNamed(
-        context,
-        AppRoutes.completeScreen,
-      );
+      Navigator.pushReplacementNamed(context, AppRoutes.exerciseScreen);
     });
+  }
+
+  void loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    day = prefs.getInt("currentDay") ?? 0;
+    nextExercise = prefs.getInt("currentExercise") ?? 0;
+    restTime = prefs.getInt("restDuration") ?? 20;
+    exercise = Constants.days[day].exercises[nextExercise];
+    nextExerciseTime = exercise.duration;
+    nextExerciseName = exercise.title;
+    isLoading = false;
+    startTimer();
   }
 
   @override
   void initState() {
     super.initState();
-    startTimer();
-  }
-
-  void aboutExercise() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return AboutExerciseBottomSheet(
-          exerciseTitle: nextExerciseName,
-          exerciseDescription: exerciseDescription,
-        );
-      },
-    );
+    loadData();
   }
 
   @override
@@ -87,13 +85,40 @@ class _RestScreenState extends State<RestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.lightBlack,
-      appBar: ExerciseAppBar(day: day),
-      body: SizeConfig.isLandscape
-          ? _buildLandscapeLayout()
-          : _buildPortraitLayout(),
-    );
+    if (isLoading) {
+      return const Scaffold(
+        backgroundColor: AppColors.lightBlack,
+        body: SafeArea(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    AppColors.yellow,
+                  ),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  "Loading Next Exercise",
+                  style: AppStyles.description,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Scaffold(
+        backgroundColor: AppColors.lightBlack,
+        appBar: ExerciseAppBar(day: day + 1),
+        body: SizeConfig.isLandscape
+            ? _buildLandscapeLayout()
+            : _buildPortraitLayout(),
+      );
+    }
   }
 
   Column _buildPortraitLayout() {
@@ -147,7 +172,8 @@ class _RestScreenState extends State<RestScreen> {
               const SizedBox(height: 10),
               ExerciseName(
                 exerciseName: nextExerciseName,
-                onHelpPressed: aboutExercise,
+                onHelpPressed: () =>
+                    Helpers.aboutExercise(context: context, exercise: exercise),
               ),
               const SizedBox(height: 5),
               Text(
@@ -209,7 +235,8 @@ class _RestScreenState extends State<RestScreen> {
               const SizedBox(height: 10),
               ExerciseName(
                 exerciseName: nextExerciseName,
-                onHelpPressed: aboutExercise,
+                onHelpPressed: () =>
+                    Helpers.aboutExercise(context: context, exercise: exercise),
               ),
               const SizedBox(height: 5),
               Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
@@ -104,7 +105,10 @@ class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(42, 0, 42, 42),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, AppRoutes.home, (route) => false);
+                        },
                         style: AppStyles.primaryButton,
                         child: const Text(
                           "Done",

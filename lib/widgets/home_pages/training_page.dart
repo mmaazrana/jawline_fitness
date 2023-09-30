@@ -41,12 +41,7 @@ class _TrainingPageState extends State<TrainingPage> {
   }
 
   void continueTraining(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-      return ExerciseScreen(
-        day: day,
-        exercise: exercise,
-      );
-    }));
+    Navigator.pushNamed(context, AppRoutes.exerciseScreen);
   }
 
   Widget _buildLandscapeLayout(BuildContext context) {

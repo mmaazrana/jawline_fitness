@@ -5,10 +5,12 @@ import '../../utils/styles.dart';
 class PrimaryButton extends StatelessWidget {
   final void Function() onPressed;
   final bool fullWidth;
-  const PrimaryButton({
+  String text;
+  PrimaryButton({
     super.key,
     required this.onPressed,
     this.fullWidth = true,
+    this.text = "Next",
   });
 
   @override
@@ -19,7 +21,9 @@ class PrimaryButton extends StatelessWidget {
       },
       style: AppStyles.primaryButton,
       child: Padding(
-        padding: fullWidth ? EdgeInsets.zero : const EdgeInsets.fromLTRB(10, 0, 5, 0),
+        padding: fullWidth
+            ? EdgeInsets.zero
+            : const EdgeInsets.fromLTRB(10, 0, 5, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -28,8 +32,8 @@ class PrimaryButton extends StatelessWidget {
                 String.fromCharCode(Icons.chevron_left_rounded.codePoint),
                 style: AppStyles.boldIconYellow,
               ),
-            const Text(
-              'Next',
+            Text(
+              text,
               style: AppStyles.primaryButtonText,
             ),
             Text(

@@ -21,6 +21,7 @@ class _LevelsListState extends State<LevelsList> {
   late final PageController _pageController;
   bool showThreeDotsIndicator = false;
   int currentPageIndex = 0;
+
   @override
   void initState() {
     super.initState();
@@ -58,7 +59,8 @@ class _LevelsListState extends State<LevelsList> {
               return ProgressCard(
                 heading: "Level ${index + 1}",
                 description: cardData.difficulty,
-                progress: 0.8,
+                progress: cardData.days.where((day) => day.isComplete).length /
+                    Constants.levels[index].days.length,
               );
             },
           ),
