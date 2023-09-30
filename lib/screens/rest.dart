@@ -34,9 +34,11 @@ class _RestScreenState extends State<RestScreen> {
   void startTimer() {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       if (restTime > 0) {
-        setState(() {
-          restTime--;
-        });
+        if (mounted) {
+          setState(() {
+            restTime--;
+          });
+        }
       }
       if (restTime <= 0) {
         timer.cancel();

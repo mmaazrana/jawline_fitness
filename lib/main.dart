@@ -6,20 +6,26 @@ import 'package:jawline_fitness/screens/reminders.dart';
 import 'package:jawline_fitness/screens/rest.dart';
 import 'package:jawline_fitness/screens/vibration_control.dart';
 import 'package:jawline_fitness/utils/colors.dart';
+import 'package:jawline_fitness/utils/constants.dart';
 import 'package:jawline_fitness/utils/data_provider.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'models/day.dart';
 import 'models/exercise.dart';
 import 'screens/day_preview.dart';
 import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Alarm.init(showDebugLogs: true);
+  await Hive.initFlutter();
+  Hive.registerAdapter(DayAdapter());
+  Hive.registerAdapter(ExerciseAdapter());
   runApp(const MainApp());
 }
 
@@ -83,12 +89,19 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isOnBoardedData = prefs.getBool('isOnboarded') ?? false;
     bool isVibrationEnabledData = prefs.getBool('isVibrationEnabled') ?? true;
     int restDurationData = prefs.getInt('restDuration') ?? 20;
+
     setState(() {
       isOnboarded = isOnBoardedData;
       restDuration = restDurationData;
       isVibrationEnabled = isVibrationEnabledData;
       // isOnboarded = false; //hard coded for testing
     });
+    if (!isOnboarded) {
+      final daysBox = await Hive.openBox<Day>('days_box');
+      for (final day in Constants.days) {
+        await daysBox.add(day);
+      }
+    }
   }
 
   @override

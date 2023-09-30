@@ -29,7 +29,7 @@ class VibrationControl extends StatelessWidget {
         titleSpacing: 0,
       ),
       body: const Padding(
-        padding: EdgeInsets.fromLTRB(42, 0, 42, 0),
+        padding: EdgeInsets.fromLTRB(42, 24, 42, 0),
         child: SingleChildScrollView(
           child: Column(children: [
             ToggleCard(),

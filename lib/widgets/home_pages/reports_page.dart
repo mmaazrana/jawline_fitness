@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jawline_fitness/utils/size_config.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/theme.dart';
 import 'package:jawline_fitness/widgets/lists/days_list.dart';
+
+import '../../models/day.dart';
 
 class ReportsPage extends StatefulWidget {
   const ReportsPage({super.key});
@@ -12,11 +15,47 @@ class ReportsPage extends StatefulWidget {
 }
 
 class _ReportsPageState extends State<ReportsPage> {
+  DateTime selectedDate = DateTime.now();
+  late List<Day> days = [];
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     AppThemes().init(context);
     SizeConfig().init(context);
+  }
+
+  void selectDate(DateTime value) {
+    setState(() {
+      selectedDate = value;
+    });
+    getDaysByDate(selectedDate);
+  }
+
+  void getDaysByDate(DateTime targetDate) async {
+    final daysBox = await Hive.openBox<Day>('days_box');
+
+    // Use the `values` property to get all Day objects from the box
+    final List<Day> allDays = daysBox.values.toList();
+
+    // Filter the list based on the targetDate, ignoring the time component
+    final List<Day> filteredDays = allDays.where((day) {
+      final dayDate = day.completedOn;
+
+      // Compare year, month, and day components only
+      return dayDate.year == targetDate.year &&
+          dayDate.month == targetDate.month &&
+          dayDate.day == targetDate.day;
+    }).toList();
+    setState(() {
+      days = filteredDays;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDaysByDate(selectedDate);
   }
 
   @override
@@ -47,10 +86,10 @@ class _ReportsPageState extends State<ReportsPage> {
           child: Theme(
             data: AppThemes.calendarTheme,
             child: CalendarDatePicker(
-              initialDate: DateTime(2018, 12, 12, 12),
-              firstDate: DateTime(2018, 12, 12, 12),
-              lastDate: DateTime(2020, 12, 12, 12),
-              onDateChanged: (value) {},
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000, 0, 0, 0),
+              lastDate: DateTime(3000, 0, 0, 0),
+              onDateChanged: (value) => selectDate(value),
             ),
           ),
         ),
@@ -63,7 +102,9 @@ class _ReportsPageState extends State<ReportsPage> {
         const SizedBox(height: 20),
         SizedBox(
           height: SizeConfig.screenHeight - 700,
-          // child: const DaysList(),
+          child: DaysList(
+            level: days,
+          ),
         ),
       ],
     );
@@ -86,10 +127,10 @@ class _ReportsPageState extends State<ReportsPage> {
             child: Theme(
               data: AppThemes.calendarTheme,
               child: CalendarDatePicker(
-                initialDate: DateTime(2018, 12, 12, 12),
-                firstDate: DateTime(2018, 12, 12, 12),
-                lastDate: DateTime(2020, 12, 12, 12),
-                onDateChanged: (value) {},
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2000, 0, 0, 0),
+                lastDate: DateTime(3000, 0, 0, 0),
+                onDateChanged: (value) => selectDate(value),
               ),
             ),
           ),
@@ -108,7 +149,9 @@ class _ReportsPageState extends State<ReportsPage> {
               const SizedBox(height: 10),
               SizedBox(
                 height: SizeConfig.screenHeight - 200,
-                // child: const DaysList(),
+                child: DaysList(
+                  level: days,
+                ),
               ),
             ],
           ),

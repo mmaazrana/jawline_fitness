@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/helpers.dart';
 import 'package:jawline_fitness/utils/routes.dart';
@@ -7,6 +8,7 @@ import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/day.dart';
 import '../models/exercise.dart';
 import '../utils/constants.dart';
 import '../utils/size_config.dart';
@@ -35,9 +37,10 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   late List<String> exerciseSteps;
   bool isPaused = false;
   bool isLoading = true;
-
+  late final Box<Day> daysBox;
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    daysBox = await Hive.openBox<Day>('days_box');
     day = prefs.getInt("currentDay") ?? 0;
     currentExercise = prefs.getInt("currentExercise") ?? 0;
     exercise = Constants.days[day].exercises[currentExercise];
@@ -59,9 +62,11 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   void startTimer() async {
     Timer.periodic(const Duration(seconds: 1), (Timer timer) async {
       if (!isPaused && currentExerciseTime > 0) {
-        setState(() {
-          currentExerciseTime--;
-        });
+        if (mounted) {
+          setState(() {
+            currentExerciseTime--;
+          });
+        }
       }
       if (currentExerciseTime <= 0) {
         timer.cancel();
@@ -89,7 +94,10 @@ class ExerciseScreenState extends State<ExerciseScreen> {
       prefs.setInt('currentExercise', currentExercise + 1);
       Navigator.pushReplacementNamed(context, AppRoutes.restScreen);
     } else {
-      Constants.days[day].completeDay();
+      final dayToUpdate = daysBox.get(day);
+      dayToUpdate!.isComplete = true;
+      dayToUpdate.completedOn = DateTime.now();
+      await dayToUpdate.save(); // Save the updated Day back to the box
       prefs.setInt('currentDay', day + 1);
       prefs.setInt('currentExercise', 0);
       Navigator.pushReplacementNamed(
@@ -103,6 +111,12 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   void initState() {
     super.initState();
     loadData();
+  }
+
+  @override
+  void dispose() {
+    // Cancel any timers or dispose of resources here
+    super.dispose();
   }
 
   @override

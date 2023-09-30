@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:jawline_fitness/models/level.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 
+import '../../models/day.dart';
 import '../../utils/constants.dart';
 import '../cards/progress_card.dart';
 
@@ -21,10 +24,19 @@ class _LevelsListState extends State<LevelsList> {
   late final PageController _pageController;
   bool showThreeDotsIndicator = false;
   int currentPageIndex = 0;
+  late final Box<Day> daysBox;
+  bool isLoading = true;
+  void loadData() async {
+    daysBox = await Hive.openBox<Day>('days_box');
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    loadData();
     _pageController = PageController(
       // Set the viewportFraction to control visibility of adjacent cards
       viewportFraction: widget.viewPortFraction,
@@ -45,42 +57,63 @@ class _LevelsListState extends State<LevelsList> {
     });
   }
 
+  double calculateProgress(Level cardData, int index) {
+    int completedDays = 0;
+    for (final Day day in cardData.days) {
+      if (daysBox.get(day.number - 1)!.isComplete) completedDays++;
+    }
+    return completedDays / Constants.levels[index].days.length;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 150,
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: Constants.levels.length,
-            itemBuilder: (context, index) {
-              final cardData = Constants.levels[index];
-              return ProgressCard(
-                heading: "Level ${index + 1}",
-                description: cardData.difficulty,
-                progress: cardData.days.where((day) => day.isComplete).length /
-                    Constants.levels[index].days.length,
-              );
-            },
-          ),
-        ),
-        if (showThreeDotsIndicator)
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                for (int i = 0; i < Constants.levels.length; i++)
-                  if (i == currentPageIndex)
-                    _buildDotIndicator(true)
-                  else
-                    _buildDotIndicator(false),
-              ],
+    return isLoading
+        ? Container(
+            height: 150,
+            margin: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+            decoration: BoxDecoration(
+              color: AppColors.yellow,
+              borderRadius: BorderRadius.circular(12),
             ),
-          ),
-      ],
-    );
+            child: const Center(
+                child: CircularProgressIndicator(
+              color: AppColors.lightBlack,
+            )),
+          )
+        : Column(
+            children: [
+              SizedBox(
+                height: 150,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: Constants.levels.length,
+                  itemBuilder: (context, index) {
+                    final cardData = Constants.levels[index];
+
+                    return ProgressCard(
+                      heading: "Level ${index + 1}",
+                      description: cardData.difficulty,
+                      progress: calculateProgress(cardData, index),
+                    );
+                  },
+                ),
+              ),
+              if (showThreeDotsIndicator)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < Constants.levels.length; i++)
+                        if (i == currentPageIndex)
+                          _buildDotIndicator(true)
+                        else
+                          _buildDotIndicator(false),
+                    ],
+                  ),
+                ),
+            ],
+          );
   }
 }
 
