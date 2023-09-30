@@ -63,7 +63,7 @@ class _ReportsPageState extends State<ReportsPage> {
         const SizedBox(height: 20),
         SizedBox(
           height: SizeConfig.screenHeight - 700,
-          child: const DaysList(),
+          // child: const DaysList(),
         ),
       ],
     );
@@ -108,7 +108,7 @@ class _ReportsPageState extends State<ReportsPage> {
               const SizedBox(height: 10),
               SizedBox(
                 height: SizeConfig.screenHeight - 200,
-                child: const DaysList(),
+                // child: const DaysList(),
               ),
             ],
           ),

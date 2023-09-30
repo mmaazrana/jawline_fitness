@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 
+import '../../utils/constants.dart';
 import '../cards/progress_card.dart';
 
 class LevelsList extends StatefulWidget {
   final double viewPortFraction;
-
-  const LevelsList({super.key, required this.viewPortFraction});
+  final void Function(int selectedIndex) setCurrentLevel;
+  const LevelsList({
+    super.key,
+    required this.viewPortFraction,
+    required this.setCurrentLevel,
+  });
 
   @override
   State<LevelsList> createState() => _LevelsListState();
@@ -33,6 +38,7 @@ class _LevelsListState extends State<LevelsList> {
       _pageController.addListener(() {
         setState(() {
           currentPageIndex = _pageController.page?.round() ?? 0;
+          widget.setCurrentLevel(currentPageIndex);
         });
       });
     });
@@ -46,13 +52,13 @@ class _LevelsListState extends State<LevelsList> {
           height: 150,
           child: PageView.builder(
             controller: _pageController,
-            itemCount: cardsData.length,
+            itemCount: Constants.levels.length,
             itemBuilder: (context, index) {
-              final cardData = cardsData[index];
+              final cardData = Constants.levels[index];
               return ProgressCard(
-                heading: cardData['heading'],
-                description: cardData['description'],
-                progress: cardData['progress'],
+                heading: "Level ${index + 1}",
+                description: cardData.difficulty,
+                progress: 0.8,
               );
             },
           ),
@@ -63,7 +69,7 @@ class _LevelsListState extends State<LevelsList> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (int i = 0; i < cardsData.length; i++)
+                for (int i = 0; i < Constants.levels.length; i++)
                   if (i == currentPageIndex)
                     _buildDotIndicator(true)
                   else
@@ -90,21 +96,21 @@ Widget _buildDotIndicator(bool isActive) {
   );
 }
 
-List<Map<String, dynamic>> cardsData = [
-  {
-    'heading': 'Level 1',
-    'description': 'Beginner',
-    'progress': 0.75,
-  },
-  {
-    'heading': 'Level 2',
-    'description': 'Intermediate',
-    'progress': 0.5,
-  },
-  {
-    'heading': 'Level 3',
-    'description': 'Expert',
-    'progress': 0.3,
-  },
-  // Add more cards as needed
-];
+// List<Map<String, dynamic>> cardsData = [
+//   {
+//     'heading': 'Level 1',
+//     'description': 'Beginner',
+//     'progress': 0.75,
+//   },
+//   {
+//     'heading': 'Level 2',
+//     'description': 'Intermediate',
+//     'progress': 0.5,
+//   },
+//   {
+//     'heading': 'Level 3',
+//     'description': 'Expert',
+//     'progress': 0.3,
+//   },
+//   // Add more cards as needed
+// ];

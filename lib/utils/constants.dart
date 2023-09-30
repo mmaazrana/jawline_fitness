@@ -1,58 +1,422 @@
 import 'package:jawline_fitness/models/exercise.dart';
 
+import '../models/day.dart';
+import '../models/level.dart';
+
 class Constants {
-  static final levelOne = [
-    [
-      exercises[0],
-      exercises[1],
-      exercises[2],
-      exercises[3],
-      exercises[4],
-      exercises[5]
-    ],
-    [
-      exercises[6],
-      exercises[4],
-      exercises[3],
-      exercises[2],
-      exercises[1],
-      exercises[0]
-    ],
-    [
-      exercises[7],
-      exercises[4],
-      exercises[8],
-      exercises[0],
-      exercises[2],
-      exercises[5]
-    ],
-    [
-      exercises[2],
-      exercises[1],
-      exercises[6],
-      exercises[3],
-      exercises[7],
-      exercises[4]
-    ],
-    [
-      exercises[8],
-      exercises[3],
-      exercises[7],
-      exercises[1],
-      exercises[0],
-      exercises[6]
-    ],
-    [
-      exercises[0],
-      exercises[1],
-      exercises[2],
-      exercises[3],
-      exercises[4],
-      exercises[5]
-    ]
+  static final List<Level> levels = [
+    Level(difficulty: "Beginner", days: levelOne),
+    Level(difficulty: "Intermediate", days: levelTwo),
+    Level(difficulty: "Advanced", days: levelThree),
+    Level(difficulty: "Expert", days: levelFour),
+    Level(difficulty: "Professional", days: levelFive),
   ];
 
-  static final exercises = [
+  static final List<Day> levelOne = [
+    days[0],
+    days[1],
+    days[2],
+    days[3],
+    days[4],
+    days[5],
+    days[6],
+  ];
+
+  static final List<Day> levelTwo = [
+    days[7],
+    days[8],
+    days[9],
+    days[10],
+    days[11],
+    days[12],
+    days[13],
+  ];
+
+  static final List<Day> levelThree = [
+    days[14],
+    days[15],
+    days[16],
+    days[17],
+    days[18],
+    days[19],
+    days[20],
+  ];
+
+  static final List<Day> levelFour = [
+    days[21],
+    days[22],
+    days[23],
+    days[24],
+    days[25],
+    days[26],
+    days[27],
+  ];
+
+  static final List<Day> levelFive = [
+    days[28],
+    days[29],
+    days[30],
+    days[31],
+    days[32],
+    days[33],
+    days[34],
+  ];
+
+  static final List<Day> days = [
+    Day(
+      number: 1,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 2,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 3,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 4,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 5,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 6,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 7,
+      exercises: [],
+    ),
+    Day(
+      number: 8,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 9,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 10,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 11,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 12,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 13,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 14,
+      exercises: [],
+    ),
+    Day(
+      number: 15,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 16,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 17,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 18,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 19,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 20,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 21,
+      exercises: [],
+    ),
+    Day(
+      number: 22,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 23,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 24,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 25,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 26,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 27,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 28,
+      exercises: [],
+    ),
+    Day(
+      number: 29,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 30,
+      exercises: [
+        exercises[8],
+        exercises[3],
+        exercises[7],
+        exercises[1],
+        exercises[0],
+        exercises[6]
+      ],
+    ),
+    Day(
+      number: 31,
+      exercises: [
+        exercises[0],
+        exercises[1],
+        exercises[2],
+        exercises[3],
+        exercises[4],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 32,
+      exercises: [
+        exercises[6],
+        exercises[4],
+        exercises[3],
+        exercises[2],
+        exercises[1],
+        exercises[0]
+      ],
+    ),
+    Day(
+      number: 33,
+      exercises: [
+        exercises[7],
+        exercises[4],
+        exercises[8],
+        exercises[0],
+        exercises[2],
+        exercises[5]
+      ],
+    ),
+    Day(
+      number: 34,
+      exercises: [
+        exercises[2],
+        exercises[1],
+        exercises[6],
+        exercises[3],
+        exercises[7],
+        exercises[4]
+      ],
+    ),
+    Day(
+      number: 35,
+      exercises: [],
+    ),
+  ];
+
+  static final List<Exercise> exercises = [
+    //0
     Exercise(
       title: "Up & Down Nods",
       description:
@@ -66,6 +430,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //1
     Exercise(
       title: "Chin Tucks",
       description:
@@ -80,6 +445,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //2
     Exercise(
       title: "Upward Chewing",
       description:
@@ -93,6 +459,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //3
     Exercise(
       title: "Extend Your Tongue",
       description:
@@ -107,6 +474,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //4
     Exercise(
       title: "Open Mouth Widely",
       description:
@@ -120,6 +488,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //5
     Exercise(
       title: "Massage Your Face",
       description:
@@ -134,6 +503,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //6
     Exercise(
       title: "Mouthwash Exercise",
       description:
@@ -147,6 +517,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //7
     Exercise(
       title: "Tilt your Head Left & Right",
       description:
@@ -162,6 +533,7 @@ class Constants {
       ],
       duration: 60,
     ),
+    //8
     Exercise(
       title: "Pushing The Tongue Outward",
       description:

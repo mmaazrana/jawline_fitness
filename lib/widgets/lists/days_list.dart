@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/screens/day_preview.dart';
-import 'package:jawline_fitness/utils/constants.dart';
-import 'package:jawline_fitness/utils/routes.dart';
 
 import '../cards/day_card.dart';
 
 class DaysList extends StatefulWidget {
-  const DaysList({super.key});
+  final List level;
+
+  const DaysList({super.key, required this.level});
 
   @override
   DaysListState createState() => DaysListState();
@@ -24,16 +24,16 @@ class DaysListState extends State<DaysList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: Constants.levelOne.length,
+      itemCount: widget.level.length,
       itemBuilder: (context, index) {
-        final cardText = "Day ${index + 1}";
+        final cardText = "Day ${widget.level[index].number}";
         final isSelected = selectedCard == cardText;
         return DayCard(
           text: cardText,
           isSelected: isSelected,
           onStart: () => {
             Navigator.of(context).push(MaterialPageRoute(builder: (builder) {
-              return DayPreview(day: index + 1);
+              return DayPreview(day: widget.level[index].number);
             })),
           },
           onPressed: () {
