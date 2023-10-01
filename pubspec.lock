@@ -21,10 +21,10 @@ packages:
     dependency: "direct main"
     description:
       name: alarm
-      sha256: a0eff87b0801563d7e96ca64d3da7656c606667a35ca72d5d36fb671a495e328
+      sha256: "4ec79ba7032cc1a70db66ece2653867a3b39262fd350a252bf5aed1c5b97d67e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.5"
+    version: "1.2.2"
   analyzer:
     dependency: transitive
     description:
@@ -330,10 +330,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_fgbg
-      sha256: d37511eef6afb7e2e3f2278ec6498bb12c650ed517c81bcd09452d910e8b9174
+      sha256: "08c4d2fd229e3df26083d5aecc3dea9ff4f2d188f8cd57aaf2b3f047bd08a047"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.2"
+    version: "0.3.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -343,13 +343,13 @@ packages:
     source: hosted
     version: "2.0.1"
   flutter_local_notifications:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: aea96b3b78556c97607d9bee59fcec515bc3ec1b6e905f14d72906ae055033fa
+      sha256: "3002092e5b8ce2f86c3361422e52e6db6776c23ee21e0b2f71b892bf4259ef04"
       url: "https://pub.dev"
     source: hosted
-    version: "14.1.2"
+    version: "15.1.1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -997,6 +997,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.1"
+  volume_controller:
+    dependency: transitive
+    description:
+      name: volume_controller
+      sha256: "189bdc7a554f476b412e4c8b2f474562b09d74bc458c23667356bce3ca1d48c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.7"
   watcher:
     dependency: transitive
     description:

@@ -68,9 +68,7 @@ class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
                     const SizedBox(height: 15),
                     const Padding(
                       padding: EdgeInsets.fromLTRB(22, 0, 22, 0),
-                      child: AlarmCard(
-                        alarmSettings: null,
-                      ),
+                      child: AlarmCard(),
                     ),
                     const SizedBox(height: 15),
                   ],
@@ -97,9 +95,7 @@ class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
                     const SizedBox(height: 75),
                     const Padding(
                       padding: EdgeInsets.fromLTRB(22, 0, 22, 0),
-                      child: AlarmCard(
-                        alarmSettings: null,
-                      ),
+                      child: AlarmCard(),
                     ),
                     const SizedBox(height: 75),
                     Padding(

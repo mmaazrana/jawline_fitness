@@ -33,7 +33,7 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
       loopAudio = true;
       vibrate = true;
       showNotification = true;
-      assetAudio = 'assets/marimba.mp3';
+      assetAudio = 'assets/ring1.mp3';
     } else {
       selectedTime = TimeOfDay(
         hour: widget.alarmSettings!.dateTime.hour,
@@ -197,25 +197,25 @@ class _ExampleAlarmEditScreenState extends State<ExampleAlarmEditScreen> {
                 value: assetAudio,
                 items: const [
                   DropdownMenuItem<String>(
-                    value: 'assets/marimba.mp3',
-                    child: Text('Marimba'),
+                    value: 'assets/ring1.mp3',
+                    child: Text('Ring1'),
                   ),
-                  DropdownMenuItem<String>(
-                    value: 'assets/nokia.mp3',
-                    child: Text('Nokia'),
-                  ),
-                  DropdownMenuItem<String>(
-                    value: 'assets/mozart.mp3',
-                    child: Text('Mozart'),
-                  ),
-                  DropdownMenuItem<String>(
-                    value: 'assets/star_wars.mp3',
-                    child: Text('Star Wars'),
-                  ),
-                  DropdownMenuItem<String>(
-                    value: 'assets/one_piece.mp3',
-                    child: Text('One Piece'),
-                  ),
+                  // DropdownMenuItem<String>(
+                  //   value: 'assets/nokia.mp3',
+                  //   child: Text('Nokia'),
+                  // ),
+                  // DropdownMenuItem<String>(
+                  //   value: 'assets/mozart.mp3',
+                  //   child: Text('Mozart'),
+                  // ),
+                  // DropdownMenuItem<String>(
+                  //   value: 'assets/star_wars.mp3',
+                  //   child: Text('Star Wars'),
+                  // ),
+                  // DropdownMenuItem<String>(
+                  //   value: 'assets/one_piece.mp3',
+                  //   child: Text('One Piece'),
+                  // ),
                 ],
                 onChanged: (value) => setState(() => assetAudio = value!),
               ),

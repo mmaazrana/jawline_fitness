@@ -5,10 +5,13 @@ import '../../utils/styles.dart';
 
 class SecondaryButton extends StatelessWidget {
   final void Function() onPressed;
-
+  final String text;
+  final bool hasIcon;
   const SecondaryButton({
     super.key,
     required this.onPressed,
+    this.text = "20 sec",
+    this.hasIcon = true,
   });
 
   @override
@@ -18,19 +21,20 @@ class SecondaryButton extends StatelessWidget {
         onPressed();
       },
       style: AppStyles.secondaryButton,
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            Icons.add_rounded,
-            color: AppColors.grey,
-            size: 24,
-          ),
-          SizedBox(
+          if (hasIcon)
+            const Icon(
+              Icons.add_rounded,
+              color: AppColors.grey,
+              size: 24,
+            ),
+          const SizedBox(
             width: 5,
           ),
           Text(
-            '20 sec',
+            text,
             style: AppStyles.alternateSecondaryButtonText,
           ),
         ],

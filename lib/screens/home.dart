@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:alarm/alarm.dart';
 import 'package:flutter/material.dart';
+import 'package:jawline_fitness/screens/ring.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/widgets/home_pages/settings_page.dart';
 
@@ -18,6 +22,37 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int _selectedItemIndex = 0;
+
+  static StreamSubscription? subscription;
+
+  Future<void> navigateToRingScreen(AlarmSettings alarmSettings) async {
+    try {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AlarmRingScreen(
+            alarmSettings: alarmSettings,
+          ),
+        ),
+      );
+    } catch (e) {
+      print('Error during navigation: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    subscription ??= Alarm.ringStream.stream.listen(
+      (alarmSettings) => navigateToRingScreen(alarmSettings),
+    );
+  }
+
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
+  }
 
   @override
   void didChangeDependencies() {

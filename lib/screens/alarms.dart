@@ -9,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../widgets/progress_indicator.dart';
+import '../widgets/tile.dart';
 
 class ExampleAlarmHomeScreen extends StatefulWidget {
   const ExampleAlarmHomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class ExampleAlarmHomeScreen extends StatefulWidget {
 class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
   late List<AlarmSettings> alarms;
 
-  static StreamSubscription? subscription;
+  // static StreamSubscription? subscription;
 
   late String savedName;
   late int savedAge;
@@ -31,9 +32,9 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
     super.initState();
     loadAlarms();
     _loadData();
-    subscription ??= Alarm.ringStream.stream.listen(
-      (alarmSettings) => navigateToRingScreen(alarmSettings),
-    );
+    // subscription ??= Alarm.ringStream.stream.listen(
+    //   (alarmSettings) => navigateToRingScreen(alarmSettings),
+    // );
   }
 
   void loadAlarms() {
@@ -43,15 +44,14 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
     });
   }
 
-  Future<void> navigateToRingScreen(AlarmSettings alarmSettings) async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              ExampleAlarmRingScreen(alarmSettings: alarmSettings),
-        ));
-    loadAlarms();
-  }
+  // Future<void> navigateToRingScreen(AlarmSettings alarmSettings) async {
+  //   await Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //         builder: (context) => AlarmRingScreen(alarmSettings: alarmSettings),
+  //       ));
+  //   loadAlarms();
+  // }
 
   Future<void> navigateToAlarmScreen(AlarmSettings? settings) async {
     final res = await showModalBottomSheet<bool?>(
@@ -82,11 +82,11 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
     });
   }
 
-  @override
-  void dispose() {
-    subscription?.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   subscription?.cancel();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,30 +96,22 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
       appBar: AppBar(title: const Text('Package alarm example app')),
       body: SafeArea(
         child: alarms.isNotEmpty
-            ?
-            // ListView.separated(
-            //   itemCount: alarms.length,
-            //   separatorBuilder: (context, index) => const Divider(),
-            //   itemBuilder: (context, index) {
-            //     return ExampleAlarmTile(
-            //       key: Key(alarms[index].id.toString()),
-            //       title: TimeOfDay(
-            //         hour: alarms[index].dateTime.hour,
-            //         minute: alarms[index].dateTime.minute,
-            //       ).format(context),
-            //       onPressed: () => navigateToAlarmScreen(alarms[index]),
-            //       onDismissed: () {
-            //         Alarm.stop(alarms[index].id)
-            //             .then((_) => loadAlarms());
-            //       },
-            //     );
-            //   },
-            // ),
-            Container(
-                color: AppColors.lightBlack,
-                width: 200,
-                height: 200,
-                child: const CustomCircularProgressIndicator(),
+            ? ListView.separated(
+                itemCount: alarms.length,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) {
+                  return ExampleAlarmTile(
+                    key: Key(alarms[index].id.toString()),
+                    title: TimeOfDay(
+                      hour: alarms[index].dateTime.hour,
+                      minute: alarms[index].dateTime.minute,
+                    ).format(context),
+                    onPressed: () => navigateToAlarmScreen(alarms[index]),
+                    onDismissed: () {
+                      Alarm.stop(alarms[index].id).then((_) => loadAlarms());
+                    },
+                  );
+                },
               )
             : Center(
                 child: Column(
@@ -181,7 +173,7 @@ class _ExampleAlarmHomeScreenState extends State<ExampleAlarmHomeScreen> {
               onPressed: () => navigateToAlarmScreen(null),
               child: const Icon(Icons.alarm_add_rounded, size: 33),
             ),
-          ], 
+          ],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

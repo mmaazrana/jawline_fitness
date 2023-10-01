@@ -9,8 +9,6 @@ class StepFive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AlarmCard(
-      alarmSettings: null,
-    );
+    return const AlarmCard();
   }
 }
