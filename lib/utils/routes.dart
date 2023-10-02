@@ -9,4 +9,5 @@ class AppRoutes {
   static const String vibrationControl = '/vibrationControl';
   static const String reminderSettings = '/reminderSettings';
   static const String dayPreview = '/dayPreview';
+  static const String voiceControl = '/voiceControl';
 }

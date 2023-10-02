@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/helpers.dart';
@@ -37,9 +38,20 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   late List<String> exerciseSteps;
   bool isPaused = false;
   bool isLoading = true;
+  bool isVoiceEnabled = true;
   late final Box<Day> daysBox;
+  FlutterTts flutterTts = FlutterTts();
+
+  List<String> steps = [
+    "Step 1: Prepare the ingredients.",
+    "Step 2: Preheat the oven to 350 degrees Fahrenheit.",
+    "Step 3: Mix the dry ingredients in a bowl.",
+    // Add more steps as needed
+  ];
+
   void loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    isVoiceEnabled = prefs.getBool('isVoiceEnabled') ?? true;
     daysBox = await Hive.openBox<Day>('days_box');
     day = prefs.getInt("currentDay") ?? 0;
     currentExercise = prefs.getInt("currentExercise") ?? 0;
@@ -51,6 +63,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     exerciseSteps = exercise.steps;
     isLoading = false;
     startTimer();
+    if (isVoiceEnabled) readStepsSequentially();
   }
 
   @override
@@ -107,15 +120,56 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     }
   }
 
+  Future<void> initTts() async {
+    await flutterTts
+        .setLanguage("en-US"); // Set the desired language (e.g., English)
+    await flutterTts.setPitch(1.0); // Set the pitch (1.0 is the default)
+    await flutterTts.setSpeechRate(
+        0.4); // Set the speech rate (0.6 is slower, 1.0 is normal)
+  }
+
+  void _cancelTts() async {
+    await flutterTts.stop();
+    await flutterTts.awaitSpeakCompletion(true);
+    await flutterTts.setVolume(0); // Set volume to 0 to mute
+    await flutterTts.setSpeechRate(0); // Set speech rate to 0 to stop
+  }
+
+  int currentStepIndex = 0;
+
+  Future<void> _speak(String _text) async {
+    if (_text.isNotEmpty) {
+      await flutterTts.awaitSpeakCompletion(true);
+      await flutterTts.speak(_text);
+    }
+  }
+
+  Future<void> readStepsSequentially() async {
+    if (currentStepIndex < exerciseSteps.length) {
+      String step = exerciseSteps[currentStepIndex];
+      await _speak(step).then((value) async => {
+            currentStepIndex++,
+            await Future.delayed(const Duration(
+                seconds: 2)), // Wait for a few seconds before the next step
+            await readStepsSequentially(), // Recursively call the function for the next step
+          });
+    } else {
+      await Future.delayed(const Duration(seconds: 2));
+      await flutterTts.awaitSpeakCompletion(true);
+      await flutterTts.speak("Exercise Complete!");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    initTts();
     loadData();
   }
 
   @override
   void dispose() {
-    // Cancel any timers or dispose of resources here
+    _cancelTts();
     super.dispose();
   }
 

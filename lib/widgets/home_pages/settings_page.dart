@@ -84,7 +84,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 15),
                 SettingCard(
                   text: "Voice Guide",
-                  onPressed: () {},
+                  onPressed: () =>
+                      Navigator.pushNamed(context, AppRoutes.voiceControl),
                 ),
                 const SizedBox(height: 15),
                 SettingCard(

@@ -24,6 +24,7 @@ dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.6
   flutter_local_notifications: ^15.1.1
+  flutter_tts: ^3.8.3
 
 
 

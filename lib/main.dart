@@ -2,10 +2,11 @@ import 'package:alarm/alarm.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/screens/home.dart';
-import 'package:jawline_fitness/screens/reminder_settings.dart';
+import 'package:jawline_fitness/screens/vibration_control.dart';
 import 'package:jawline_fitness/screens/reminders.dart';
 import 'package:jawline_fitness/screens/rest.dart';
-import 'package:jawline_fitness/screens/vibration_control.dart';
+import 'package:jawline_fitness/screens/reminder_settings.dart';
+import 'package:jawline_fitness/screens/voice_control.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/constants.dart';
 import 'package:jawline_fitness/utils/data_provider.dart';
@@ -60,6 +61,7 @@ class MainApp extends StatelessWidget {
           AppRoutes.reminders: (context) => const CustomReminders(),
           AppRoutes.vibrationControl: (context) => const VibrationControl(),
           AppRoutes.reminderSettings: (context) => const ReminderSettings(),
+          AppRoutes.voiceControl: (context) => const VoiceControl(),
           // AppRoutes.dayPreview: (context, {int? index}) =>
           //     DayPreview(day: index! + 1),
         },
@@ -76,9 +78,9 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late bool isOnboarded;
-  late bool isVibrationEnabled;
-  late int restDuration;
+  late bool isOnboarded = false;
+  late bool isVibrationEnabled = true;
+  late int restDuration = 20;
 
   @override
   void initState() {
