@@ -4,16 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/colors.dart';
 
-class VibrationControl extends StatefulWidget {
-  const VibrationControl({super.key});
+class ReminderSettings extends StatefulWidget {
+  const ReminderSettings({super.key});
 
   @override
-  State<VibrationControl> createState() => _VibrationControlState();
+  State<ReminderSettings> createState() => _ReminderSettingsState();
 }
 
-class _VibrationControlState extends State<VibrationControl> {
-  late bool isVibrationEnabled = true;
-
+class _ReminderSettingsState extends State<ReminderSettings> {
+  late bool loopAudio = true;
+  late bool showNotification = true;
   @override
   void initState() {
     super.initState();
@@ -22,18 +22,29 @@ class _VibrationControlState extends State<VibrationControl> {
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isVibrationEnabledData = prefs.getBool('isVibrationEnabled') ?? true;
+
+    bool showNotificationData = prefs.getBool("showNotification") ?? true;
+    bool loopAudioData = prefs.getBool("loopAudio") ?? true;
     setState(() {
-      isVibrationEnabled = isVibrationEnabledData;
+      showNotification = showNotificationData;
+      loopAudio = loopAudioData;
     });
   }
 
-  void toggleVibration(bool value) async {
+  void toggleNotification(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      isVibrationEnabled = value;
+      showNotification = value;
     });
-    prefs.setBool('isVibrationEnabled', isVibrationEnabled);
+    prefs.setBool('showNotification', showNotification);
+  }
+
+  void toggleAudioLoop(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      loopAudio = value;
+    });
+    prefs.setBool('loopAudio', loopAudio);
   }
 
   @override
@@ -42,7 +53,7 @@ class _VibrationControlState extends State<VibrationControl> {
       backgroundColor: AppColors.lightBlack,
       appBar: AppBar(
         title: const Text(
-          "VIBRATION CONTROL",
+          "REMINDER SETTINGS",
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -63,9 +74,15 @@ class _VibrationControlState extends State<VibrationControl> {
         child: SingleChildScrollView(
           child: Column(children: [
             ToggleCard(
-              text: "Vibration Feedback",
-              value: isVibrationEnabled,
-              onToggle: toggleVibration,
+              text: "Reminder Notification",
+              value: showNotification,
+              onToggle: toggleNotification,
+            ),
+            const SizedBox(height: 15),
+            ToggleCard(
+              text: "Loop Reminder Audio",
+              value: loopAudio,
+              onToggle: toggleAudioLoop,
             ),
           ]),
         ),

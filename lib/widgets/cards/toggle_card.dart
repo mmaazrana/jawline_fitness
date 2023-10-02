@@ -4,37 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/colors.dart';
 import '../switches/custom_switch.dart';
 
-class ToggleCard extends StatefulWidget {
-  const ToggleCard({super.key});
-
-  @override
-  State<ToggleCard> createState() => _ToggleCardState();
-}
-
-class _ToggleCardState extends State<ToggleCard> {
-  late bool isVibrationEnabled;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isVibrationEnabledData = prefs.getBool('isVibrationEnabled') ?? true;
-    setState(() {
-      isVibrationEnabled = isVibrationEnabledData;
-    });
-  }
-
-  void toggleVibration(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isVibrationEnabled = value;
-    });
-    prefs.setBool('isVibrationEnabled', isVibrationEnabled);
-  }
+class ToggleCard extends StatelessWidget {
+  final String text;
+  final bool value;
+  final void Function(bool value) onToggle;
+  ToggleCard({
+    super.key,
+    required this.text,
+    required this.value,
+    required this.onToggle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +27,12 @@ class _ToggleCardState extends State<ToggleCard> {
       ),
       child: Row(
         children: [
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Vibration Feedback",
-                style: TextStyle(
+                text,
+                style: const TextStyle(
                   color: AppColors.grey,
                   fontSize: 20,
                   fontWeight: FontWeight.w800,
@@ -63,9 +42,9 @@ class _ToggleCardState extends State<ToggleCard> {
           ),
           const Spacer(),
           CustomSwitch(
-            reminder: isVibrationEnabled,
-            onEnable: () => toggleVibration(true),
-            onDisable: () => toggleVibration(false),
+            reminder: value,
+            onEnable: () => onToggle(true),
+            onDisable: () => onToggle(false),
           )
         ],
       ),

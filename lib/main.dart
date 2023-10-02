@@ -2,6 +2,7 @@ import 'package:alarm/alarm.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/screens/home.dart';
+import 'package:jawline_fitness/screens/reminder_settings.dart';
 import 'package:jawline_fitness/screens/reminders.dart';
 import 'package:jawline_fitness/screens/rest.dart';
 import 'package:jawline_fitness/screens/vibration_control.dart';
@@ -58,6 +59,7 @@ class MainApp extends StatelessWidget {
               const ExcerciseCompleteScreen(),
           AppRoutes.reminders: (context) => const CustomReminders(),
           AppRoutes.vibrationControl: (context) => const VibrationControl(),
+          AppRoutes.reminderSettings: (context) => const ReminderSettings(),
           // AppRoutes.dayPreview: (context, {int? index}) =>
           //     DayPreview(day: index! + 1),
         },

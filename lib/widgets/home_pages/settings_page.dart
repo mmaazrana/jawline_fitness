@@ -43,9 +43,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   const SizedBox(height: 15),
                   SettingCard(
-                    text: "Custom Reminders",
+                    text: "Daily Reminder",
                     onPressed: () =>
                         Navigator.pushNamed(context, AppRoutes.reminders),
+                  ),
+                  const SizedBox(height: 15),
+                  SettingCard(
+                    text: "Reminder Settings",
+                    onPressed: () => Navigator.pushNamed(
+                        context, AppRoutes.reminderSettings),
                   ),
                 ],
               ),

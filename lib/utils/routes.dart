@@ -7,5 +7,6 @@ class AppRoutes {
   static const String completeScreen = '/complete';
   static const String reminders = '/reminders';
   static const String vibrationControl = '/vibrationControl';
+  static const String reminderSettings = '/reminderSettings';
   static const String dayPreview = '/dayPreview';
 }
