@@ -15,7 +15,7 @@ class RestDurationBottomSheet extends StatefulWidget {
 }
 
 class _RestDurationBottomSheetState extends State<RestDurationBottomSheet> {
-  late int currentRestDuration;
+  late int currentRestDuration = 20;
 
   @override
   void initState() {

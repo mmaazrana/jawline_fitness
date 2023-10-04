@@ -29,8 +29,8 @@ class OnBoarding extends StatefulWidget {
 class OnBoardingState extends State<OnBoarding> {
   int currentStep = 0;
   var nameController = TextEditingController();
-  late final String gender;
-  late final String age;
+  late String _gender;
+  // late String _age;
   int _currentValue = 21;
 
   @override
@@ -49,7 +49,7 @@ class OnBoardingState extends State<OnBoarding> {
           Provider.of<DataProvider>(context, listen: false);
       final name = nameController.text;
       final age = _currentValue;
-      final gender = this.gender;
+      final gender = _gender;
       final userData = User(name: name, age: age, gender: gender);
       userDataProvider.saveUserData(userData);
 
@@ -71,7 +71,7 @@ class OnBoardingState extends State<OnBoarding> {
   void _redirectToHome() =>
       Navigator.pushReplacementNamed(context, AppRoutes.home);
   void _previousStep() => setState(() => {if (currentStep > 0) currentStep--});
-  void setGender(gender) => setState(() => this.gender = gender);
+  void setGender(gender) => setState(() => _gender = gender);
   void setAge(value) => setState(() => _currentValue = value);
 
   @override

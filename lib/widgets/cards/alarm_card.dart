@@ -101,7 +101,8 @@ class _AlarmCardState extends State<AlarmCard> {
 
   Future<void> pickTime() async {
     var status = await Permission.scheduleExactAlarm.status;
-    if (!status.isDenied) {
+
+    if (status.isDenied) {
       var isPermanentlyDenied =
           await Permission.scheduleExactAlarm.request().isPermanentlyDenied;
       if (isPermanentlyDenied) {
