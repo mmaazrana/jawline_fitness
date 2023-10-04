@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
+import '../../utils/routes.dart';
 
 class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ExerciseAppBar({
@@ -21,7 +22,11 @@ class ExerciseAppBar extends StatelessWidget implements PreferredSizeWidget {
       toolbarHeight: 80,
       leading: IconButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.home,
+            (route) => false,
+          );
         },
         icon: const Icon(
           Icons.chevron_left_rounded,

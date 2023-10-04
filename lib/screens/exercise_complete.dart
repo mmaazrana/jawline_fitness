@@ -54,7 +54,10 @@ class _ExcerciseCompleteScreenState extends State<ExcerciseCompleteScreen> {
                           SizedBox(
                             width: 250,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, AppRoutes.home, (route) => false);
+                              },
                               style: AppStyles.primaryButton,
                               child: const Text(
                                 "Done",

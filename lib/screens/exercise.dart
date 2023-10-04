@@ -16,6 +16,7 @@ import '../utils/size_config.dart';
 import '../widgets/counter.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
 import '../widgets/exercise_name.dart';
+import '../widgets/loader.dart';
 
 class ExerciseScreen extends StatefulWidget {
   // final int day;
@@ -89,9 +90,11 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   void pauseTimer() {
-    setState(() {
-      isPaused = !isPaused;
-    });
+    if (mounted) {
+      setState(() {
+        isPaused = !isPaused;
+      });
+    }
   }
 
   void skipExercise() async {
@@ -111,7 +114,14 @@ class ExerciseScreenState extends State<ExerciseScreen> {
       dayToUpdate!.isComplete = true;
       dayToUpdate.completedOn = DateTime.now();
       await dayToUpdate.save(); // Save the updated Day back to the box
-      prefs.setInt('currentDay', day + 1);
+      int nextDay = day + 1;
+      while (daysBox.get(nextDay)!.isComplete && nextDay < 35) {
+        nextDay++;
+        if (nextDay == 35) {
+          await prefs.setBool('trainingComplete', true);
+        }
+      }
+      prefs.setInt('currentDay', nextDay);
       prefs.setInt('currentExercise', 0);
       Navigator.pushReplacementNamed(
         context,
@@ -176,30 +186,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Scaffold(
-        backgroundColor: AppColors.lightBlack,
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.yellow,
-                  ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  "Loading Exercise",
-                  style: AppStyles.description,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+      return const Loader(text: "Loading Exercise");
     } else {
       double progress =
           (totalExerciseTime - currentExerciseTime) / totalExerciseTime;

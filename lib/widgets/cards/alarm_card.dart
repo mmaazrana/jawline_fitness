@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../loader.dart';
 import '../switches/custom_switch.dart';
 
 class AlarmCard extends StatefulWidget {
@@ -213,7 +214,18 @@ class _AlarmCardState extends State<AlarmCard> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? Container()
+        ? Container(
+            height: 105,
+            margin: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+            decoration: BoxDecoration(
+              color: AppColors.lightBlack,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const Center(
+                child: CircularProgressIndicator(
+              color: AppColors.yellow,
+            )),
+          )
         : Padding(
             padding: const EdgeInsets.all(20.0),
             child: RawMaterialButton(

@@ -28,7 +28,6 @@ class DayCard extends StatefulWidget {
 
 class _DayCardState extends State<DayCard> {
   late final Box<Day> daysBox;
-
   bool isLoading = true;
   void loadData() async {
     daysBox = await Hive.openBox<Day>('days_box');

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
 import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/widgets/counter.dart';
+import 'package:jawline_fitness/widgets/loader.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/exercise.dart';
 import '../utils/constants.dart';
@@ -48,9 +49,11 @@ class _RestScreenState extends State<RestScreen> {
   }
 
   void incrementTimer() {
-    setState(() {
-      restTime += 20;
-    });
+    if (mounted) {
+      setState(() {
+        restTime += 20;
+      });
+    }
   }
 
   void skipRest() {
@@ -88,30 +91,7 @@ class _RestScreenState extends State<RestScreen> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      return const Scaffold(
-        backgroundColor: AppColors.lightBlack,
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    AppColors.yellow,
-                  ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  "Loading Next Exercise",
-                  style: AppStyles.description,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+      return const Loader(text: "Loading Next Exercise");
     } else {
       return Scaffold(
         backgroundColor: AppColors.lightBlack,
