@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../switches/custom_switch.dart';
@@ -8,7 +7,7 @@ class ToggleCard extends StatelessWidget {
   final String text;
   final bool value;
   final void Function(bool value) onToggle;
-  ToggleCard({
+  const ToggleCard({
     super.key,
     required this.text,
     required this.value,
@@ -49,6 +48,5 @@ class ToggleCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

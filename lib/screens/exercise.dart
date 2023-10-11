@@ -147,10 +147,10 @@ class ExerciseScreenState extends State<ExerciseScreen> {
 
   int currentStepIndex = 0;
 
-  Future<void> _speak(String _text) async {
-    if (_text.isNotEmpty) {
+  Future<void> _speak(String text) async {
+    if (text.isNotEmpty) {
       await flutterTts.awaitSpeakCompletion(true);
-      await flutterTts.speak(_text);
+      await flutterTts.speak(text);
     }
   }
 

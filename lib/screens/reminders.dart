@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/colors.dart';
-import 'package:jawline_fitness/utils/styles.dart';
-import 'package:jawline_fitness/widgets/buttons/primary_button.dart';
 import 'package:jawline_fitness/widgets/cards/alarm_card.dart';
 import 'dart:async';
 
 import 'package:alarm/alarm.dart';
 import 'package:jawline_fitness/screens/edit_alarm.dart';
-import 'package:jawline_fitness/screens/ring.dart';
-import 'package:jawline_fitness/utils/colors.dart';
-import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../widgets/progress_indicator.dart';
-import '../widgets/tile.dart';
 
 class CustomReminders extends StatefulWidget {
   const CustomReminders({Key? key}) : super(key: key);

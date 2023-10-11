@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../utils/colors.dart';
+import '../utils/helpers.dart';
 
 class Counter extends StatelessWidget {
   const Counter({
@@ -56,7 +57,7 @@ class Counter extends StatelessWidget {
                 color: AppColors.darkGrey,
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
-              (currentExerciseTime ~/ 60).toString().padLeft(2, '0'),
+              Helpers.formatNumberToTwoDigit(currentExerciseTime ~/ 60),
               style: const TextStyle(
                 fontSize: 28,
                 height: 1,
@@ -154,7 +155,7 @@ class Counter extends StatelessWidget {
                 color: AppColors.darkGrey,
                 borderRadius: BorderRadius.circular(10)),
             child: Text(
-              (currentExerciseTime % 60).toString().padLeft(2, '0'),
+              Helpers.formatNumberToTwoDigit(currentExerciseTime % 60),
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w900,

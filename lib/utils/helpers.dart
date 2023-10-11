@@ -9,6 +9,14 @@ class Helpers {
     return date.toString();
   }
 
+  static String formatTime(int hour, int minute) {
+    return '${formatNumberToTwoDigit(hour)}:${formatNumberToTwoDigit(minute)}';
+  }
+
+  static String formatNumberToTwoDigit(int number) {
+    return number.toString().padLeft(2, '0');
+  }
+
   static void aboutExercise({
     required BuildContext context,
     required Exercise exercise,

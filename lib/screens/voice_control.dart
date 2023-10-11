@@ -71,6 +71,5 @@ class _VoiceControlState extends State<VoiceControl> {
         ),
       ),
     );
-    ;
   }
 }

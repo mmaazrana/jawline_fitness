@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jawline_fitness/utils/constants.dart';
 import 'package:jawline_fitness/widgets/cards/exercise_card.dart';
 
-import '../cards/day_card.dart';
 
 class ExercisesList extends StatefulWidget {
   final int day;

@@ -11,7 +11,6 @@ import '../utils/helpers.dart';
 import '../utils/size_config.dart';
 import '../utils/styles.dart';
 import '../utils/svg_assets.dart';
-import '../widgets/bottom_sheets/about_exercise_bottom_sheet.dart';
 import '../widgets/buttons/secondary_button.dart';
 import '../widgets/buttons/tertiary_button.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
@@ -159,7 +158,8 @@ class _RestScreenState extends State<RestScreen> {
               ),
               const SizedBox(height: 5),
               Text(
-                "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                Helpers.formatTime(
+                    nextExerciseTime ~/ 60, nextExerciseTime % 60),
                 style: AppStyles.alternateCounterText,
               ),
             ],
@@ -222,7 +222,8 @@ class _RestScreenState extends State<RestScreen> {
               ),
               const SizedBox(height: 5),
               Text(
-                "${(nextExerciseTime ~/ 60).toString().padLeft(2, '0')}:${(nextExerciseTime % 60).toString().padLeft(2, '0')}",
+                Helpers.formatTime(
+                    nextExerciseTime ~/ 60, nextExerciseTime % 60),
                 style: AppStyles.alternateCounterText,
               ),
               const SizedBox(height: 15),

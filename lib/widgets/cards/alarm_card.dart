@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../loader.dart';
+import '../../utils/helpers.dart';
 import '../switches/custom_switch.dart';
 
 class AlarmCard extends StatefulWidget {
@@ -109,21 +109,27 @@ class _AlarmCardState extends State<AlarmCard> {
       if (isPermanentlyDenied) {
         openAppSettings();
       } else {
-        final res = await showTimePicker(
-          initialTime: selectedTime,
-          context: context,
-          builder: (context, child) {
-            return Theme(
-              data: AppThemes.timePickerTheme,
-              child: child!,
-            );
-          },
-        );
-        if (res != null) {
-          setState(() => selectedTime = res);
-          saveAlarm();
-        }
+        openTimePicker();
       }
+    } else {
+      openTimePicker();
+    }
+  }
+
+  void openTimePicker() async {
+    final res = await showTimePicker(
+      initialTime: selectedTime,
+      context: context,
+      builder: (context, child) {
+        return Theme(
+          data: AppThemes.timePickerTheme,
+          child: child!,
+        );
+      },
+    );
+    if (res != null) {
+      setState(() => selectedTime = res);
+      saveAlarm();
     }
   }
 
@@ -156,7 +162,6 @@ class _AlarmCardState extends State<AlarmCard> {
         0,
       );
     }
-    ;
 
     prefs.setInt("year", dateTime.year);
     prefs.setInt("month", dateTime.month);
@@ -248,7 +253,7 @@ class _AlarmCardState extends State<AlarmCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$hour : $minute",
+                          Helpers.formatTime(hour, minute),
                           style: const TextStyle(
                             color: AppColors.grey,
                             fontSize: 28,

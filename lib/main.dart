@@ -17,7 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/day.dart';
 import 'models/exercise.dart';
-import 'screens/day_preview.dart';
 import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -88,6 +88,5 @@ class _ReminderSettingsState extends State<ReminderSettings> {
         ),
       ),
     );
-    ;
   }
 }

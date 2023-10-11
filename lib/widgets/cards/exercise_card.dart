@@ -47,7 +47,7 @@ class ExerciseCard extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: Image.asset('assets/logo.png'),
             ),
-            SizedBox(
+            const SizedBox(
               width: 15,
             ),
             Column(

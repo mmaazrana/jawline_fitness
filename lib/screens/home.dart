@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
   }
 
   final List<Widget> _pages = [
-    TrainingPage(),
+    const TrainingPage(),
     const ReportsPage(),
     const SettingsPage(),
   ];

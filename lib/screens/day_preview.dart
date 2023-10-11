@@ -12,7 +12,6 @@ import '../models/day.dart';
 import '../utils/colors.dart';
 import '../utils/routes.dart';
 import '../widgets/app_bars/exercise_app_bar.dart';
-import 'exercise.dart';
 
 class DayPreview extends StatefulWidget {
   final int day;
@@ -57,7 +56,7 @@ class _DayPreviewState extends State<DayPreview> {
 
     final dayToUpdate = daysBox.get(widget.day - 1);
     print(dayToUpdate!.isComplete);
-    dayToUpdate!.isComplete = true;
+    dayToUpdate.isComplete = true;
     dayToUpdate.completedOn = DateTime.now();
     await dayToUpdate.save(); // Save the updated Day back to the box
     int nextDay = widget.day;

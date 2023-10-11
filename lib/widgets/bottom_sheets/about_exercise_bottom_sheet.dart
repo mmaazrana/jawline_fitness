@@ -32,18 +32,18 @@ class AboutExerciseBottomSheet extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${exerciseTitle}",
-              style: TextStyle(
+              exerciseTitle,
+              style: const TextStyle(
                 color: AppColors.grey,
                 fontSize: 24,
                 fontWeight: FontWeight.w800,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
-              "${exerciseDescription}",
+              exerciseDescription,
               textAlign: TextAlign.justify,
               style: const TextStyle(
                 color: AppColors.grey,

@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:jawline_fitness/screens/exercise.dart';
 import 'package:jawline_fitness/widgets/buttons/primary_button.dart';
 import 'package:jawline_fitness/widgets/lists/levels_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/exercise.dart';
-import '../../utils/colors.dart';
 import '../../utils/constants.dart';
 import '../../utils/routes.dart';
 import '../../utils/size_config.dart';
-import '../../utils/styles.dart';
 import '../lists/days_list.dart';
 import '../loader.dart';
 
 class TrainingPage extends StatefulWidget {
-  TrainingPage({
+  const TrainingPage({
     super.key,
   });
 
@@ -174,7 +171,7 @@ class _TrainingPageState extends State<TrainingPage> {
               //     ],
               //   ),
               // ),
-              if (!trainingComplete) SizedBox(height: 25),
+              if (!trainingComplete) const SizedBox(height: 25),
               SizedBox(
                 height: trainingComplete
                     ? SizeConfig.screenHeight - 338

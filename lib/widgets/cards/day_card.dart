@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jawline_fitness/utils/colors.dart';
-import 'package:jawline_fitness/utils/styles.dart';
 
 import '../../models/day.dart';
-import '../../utils/constants.dart';
 
 class DayCard extends StatefulWidget {
   final String text;
@@ -49,7 +47,7 @@ class _DayCardState extends State<DayCard> {
     return isLoading
         ? Container(
             height: 68,
-            margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
+            margin: const EdgeInsets.fromLTRB(0, 8, 0, 8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               color:
@@ -104,8 +102,8 @@ class _DayCardState extends State<DayCard> {
                             borderRadius: BorderRadius.circular(8),
                             color: AppColors.lightBlack,
                           ),
-                          padding: EdgeInsets.all(4),
-                          child: Icon(
+                          padding: const EdgeInsets.all(4),
+                          child: const Icon(
                             Icons.check_rounded,
                             color: AppColors.yellow,
                             size: 24,

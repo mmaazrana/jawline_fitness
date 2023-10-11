@@ -71,6 +71,5 @@ class _VibrationControlState extends State<VibrationControl> {
         ),
       ),
     );
-    ;
   }
 }
