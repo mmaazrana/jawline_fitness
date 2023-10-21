@@ -6,8 +6,8 @@ class PrimaryButton extends StatelessWidget {
   final void Function() onPressed;
   final bool fullWidth;
   final bool hasIcon;
-  String text;
-  PrimaryButton({
+  final String text;
+  const PrimaryButton({
     super.key,
     required this.onPressed,
     this.fullWidth = true,

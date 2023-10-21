@@ -96,7 +96,7 @@ class _ReportsPageState extends State<ReportsPage> {
         const SizedBox(height: 20),
         const Text(
           "Excercises Performed",
-          style: AppStyles.secondaryHeading,
+          style: AppStyles.tertiaryHeading,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),

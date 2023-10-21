@@ -20,6 +20,7 @@ import 'models/exercise.dart';
 import 'screens/exercise_complete.dart';
 import 'screens/exercise.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +28,10 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(DayAdapter());
   Hive.registerAdapter(ExerciseAdapter());
+  MobileAds.instance.initialize();
+  RequestConfiguration configuration =
+      RequestConfiguration(testDeviceIds: ["953A2723522E21AC2CAF8306CC03323E"]);
+  MobileAds.instance.updateRequestConfiguration(configuration);
   runApp(const MainApp());
 }
 
