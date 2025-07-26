@@ -8,6 +8,7 @@ import 'package:jawline_fitness/utils/routes.dart';
 import 'package:jawline_fitness/utils/styles.dart';
 import 'package:jawline_fitness/utils/svg_assets.dart';
 import 'package:jawline_fitness/widgets/buttons/tertiary_button.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/day.dart';
 import '../models/exercise.dart';
@@ -89,7 +90,7 @@ class ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
 
-  void pauseTimer() {
+  void pauseTimer() async {
     if (mounted) {
       setState(() {
         isPaused = !isPaused;
@@ -133,16 +134,17 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   Future<void> initTts() async {
     await flutterTts
         .setLanguage("en-US"); // Set the desired language (e.g., English)
+    await flutterTts.setVolume(1.0); // Set volume to 0 to mute
     await flutterTts.setPitch(1.0); // Set the pitch (1.0 is the default)
     await flutterTts.setSpeechRate(
         0.4); // Set the speech rate (0.6 is slower, 1.0 is normal)
   }
 
   void _cancelTts() async {
+    await flutterTts.awaitSpeakCompletion(false);
     await flutterTts.stop();
-    await flutterTts.awaitSpeakCompletion(true);
     await flutterTts.setVolume(0); // Set volume to 0 to mute
-    await flutterTts.setSpeechRate(0); // Set speech rate to 0 to stop
+    // await flutterTts.setSpeechRate(0); // Set speech rate to 0 to stop
   }
 
   int currentStepIndex = 0;
@@ -155,18 +157,32 @@ class ExerciseScreenState extends State<ExerciseScreen> {
   }
 
   Future<void> readStepsSequentially() async {
+    await flutterTts.setVolume(1.0); // Set volume to 0 to mute
     if (currentStepIndex < exerciseSteps.length) {
-      String step = exerciseSteps[currentStepIndex];
-      await _speak(step).then((value) async => {
-            currentStepIndex++,
-            await Future.delayed(const Duration(
-                seconds: 2)), // Wait for a few seconds before the next step
-            await readStepsSequentially(), // Recursively call the function for the next step
-          });
+      if (!isPaused) {
+        String step = exerciseSteps[currentStepIndex];
+        await _speak(step).then((value) async {
+          currentStepIndex++;
+          await Future.delayed(const Duration(
+              seconds: 2)); // Wait for a few seconds before the next step
+          await readStepsSequentially(); // Recursively call the function for the next step
+        });
+      } else {
+        // If paused, wait and then check again
+        await Future.delayed(const Duration(seconds: 1));
+        await readStepsSequentially();
+      }
     } else {
-      await Future.delayed(const Duration(seconds: 2));
-      await flutterTts.awaitSpeakCompletion(true);
-      await flutterTts.speak("Exercise Complete!");
+      if (!isPaused) {
+        await Future.delayed(const Duration(seconds: 2));
+        await flutterTts.awaitSpeakCompletion(true);
+        await flutterTts.speak("Exercise Complete!");
+        await flutterTts.stop();
+      } else {
+        // If paused, wait and then check again
+        await Future.delayed(const Duration(seconds: 1));
+        await readStepsSequentially();
+      }
     }
   }
 
@@ -251,6 +267,9 @@ class ExerciseScreenState extends State<ExerciseScreen> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
+                  Lottie.network(
+                      'https://app.lottiefiles.com/animation/d27c1461-f7f6-4141-98ce-a92ee3dc3ea0'),
+                  Lottie.asset('assets/chin_tucks.json'),
                   SvgAssets.createLineSvg(SvgAssets.line1,
                       SizeConfig.screenWidth * 0.5, SizeConfig.screenHeight)
                 ],
@@ -263,6 +282,9 @@ class ExerciseScreenState extends State<ExerciseScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Lottie.network(
+                      'https://app.lottiefiles.com/animation/d27c1461-f7f6-4141-98ce-a92ee3dc3ea0'),
+                  Lottie.asset('assets/chin_tucks.json'),
                   ExerciseName(
                     exerciseName: exerciseName,
                     onHelpPressed: () => Helpers.aboutExercise(

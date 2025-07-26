@@ -31,7 +31,7 @@
                 android:layout_height="60dp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <MediaView
                     android:id="@+id/native_ad_icon"
                     android:layout_width="55dp"
                     android:layout_height="55dp"

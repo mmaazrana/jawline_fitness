@@ -34,7 +34,7 @@ class _NativeAdCardState extends State<NativeAdCard> {
 
   // TODO: replace this test ad unit with your own ad unit.
   final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/2247696110'
+      ? 'ca-app-pub-1277898408996893/6652438566'
       : 'ca-app-pub-3940256099942544/3986624511';
 
   /// Loads a native ad.
@@ -100,7 +100,7 @@ class _NativeAdCardState extends State<NativeAdCard> {
     // Small template
     final smallAdContainer = Container(
       clipBehavior: Clip.antiAlias,
-      margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       decoration: BoxDecoration(
         color: AppColors.darkGrey,
         borderRadius: BorderRadius.circular(10),
@@ -114,21 +114,6 @@ class _NativeAdCardState extends State<NativeAdCard> {
       child: AdWidget(ad: _nativeAd!),
     );
 
-// Medium template
-    final mediumAdContainer = Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: AppColors.darkGrey,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      constraints: const BoxConstraints(
-        minWidth: 320, // minimum recommended width
-        minHeight: 320, // minimum recommended height
-        maxWidth: 400,
-        maxHeight: 400,
-      ),
-      child: AdWidget(ad: _nativeAd!),
-    );
     return !_nativeAdIsLoaded
         ? Container(
             height: 100,
@@ -137,59 +122,8 @@ class _NativeAdCardState extends State<NativeAdCard> {
               color: AppColors.darkGrey,
               borderRadius: BorderRadius.circular(24),
             ),
-            child: Loader(text: "Loading Data"),
+            child: const Loader(text: "Loading Data"),
           )
         : smallAdContainer;
-    return GestureDetector(
-      onTap: onAdPressed,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8.0),
-        padding: const EdgeInsets.all(16.0),
-        height: 68,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: AppColors.darkGrey, // Use the same color as your DayCard
-          border: Border.all(
-            color: AppColors.darkGrey, // Use the same border color
-            width: 2.0,
-            strokeAlign: BorderSide.strokeAlignInside,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Text(
-                "Ad Card", // You can customize the ad card text
-                style: const TextStyle(
-                  color: AppColors.grey,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: onAdPressed,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(5),
-                backgroundColor: AppColors.yellow, // Use the same button color
-                minimumSize: const Size(64, 28),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-              ),
-              child: const Text(
-                'Learn More',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w800,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

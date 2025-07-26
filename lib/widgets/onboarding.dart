@@ -29,7 +29,7 @@ class OnBoarding extends StatefulWidget {
 class OnBoardingState extends State<OnBoarding> {
   int currentStep = 0;
   var nameController = TextEditingController();
-  late String _gender;
+  late String _gender = "MALE";
   // late String _age;
   int _currentValue = 21;
 
@@ -58,7 +58,6 @@ class OnBoardingState extends State<OnBoarding> {
       await prefs.setInt('age', age);
       await prefs.setString('gender', gender);
       await prefs.setBool('isOnboarded', true);
-
       _redirectToHome();
     }
   }

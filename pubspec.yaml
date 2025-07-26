@@ -25,8 +25,9 @@ dependencies:
   build_runner: ^2.4.6
   flutter_local_notifications: ^15.1.1
   flutter_tts: ^3.8.3
-  google_mobile_ads: ^3.1.0
+  google_mobile_ads: ^4.0.0
   visibility_aware_state: ^1.0.5
+  lottie: ^3.1.2
 
 
 
